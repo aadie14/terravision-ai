@@ -32,7 +32,7 @@ from doc_facts import (
 
 DOCS = ROOT / "docs"
 P = C.PROJECT
-REPO_URL = "https://github.com/rexiee2026-ui/terravision-ai"
+REPO_URL = "https://github.com/aadie14/terravision-ai"
 MD = B.md_table
 pct = B.pct
 SHOTS = "evidence/screenshots"

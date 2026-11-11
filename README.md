@@ -62,7 +62,7 @@ All seven diagrams (system architecture, flowchart, use-case, class, sequence, D
 Requirements: Python 3.12, Node.js 20+, optionally an NVIDIA GPU (RTX 50-series needs CUDA 12.8 wheels).
 
 ```powershell
-git clone https://github.com/rexiee2026-ui/terravision-ai.git; cd terravision-ai
+git clone https://github.com/aadie14/terravision-ai.git; cd terravision-ai
 py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
@@ -70,7 +70,7 @@ cd frontend; npm install; cd ..
 ```
 
 **Model checkpoints** are not stored in git (the Swin file is 120 MB). Download the four `.pt` files from the
-[Phase 1 release](https://github.com/rexiee2026-ui/terravision-ai/releases/tag/v0.1.0-phase1) into `checkpoints/` (checksums in `SHA256SUMS.txt`), or re-train them (see [docs/Implementation_Guide.md](docs/Implementation_Guide.md)).
+[Phase 1 release](https://github.com/aadie14/terravision-ai/releases/tag/v0.1.0-phase1) into `checkpoints/` (checksums in `SHA256SUMS.txt`), or re-train them (see [docs/Implementation_Guide.md](docs/Implementation_Guide.md)).
 
 ```powershell
 .\scripts\start.ps1        # backend on :8000, frontend on :5173, opens the browser
