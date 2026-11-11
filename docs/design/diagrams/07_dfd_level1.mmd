@@ -1,0 +1,40 @@
+flowchart TB
+  user[/"User"/]
+  provider[/"Satellite provider"/]
+  researcher[/"Researcher"/]
+  p1(("1.0<br/>Validate and<br/>ingest inputs"))
+  p2(("2.0<br/>Acquire satellite<br/>imagery"))
+  p3(("3.0<br/>Run change-detection<br/>inference"))
+  p4(("4.0<br/>Post-process and<br/>evaluate"))
+  p5(("5.0<br/>Serve results<br/>and history"))
+  p6(("6.0<br/>Train and benchmark<br/>models"))
+  d1[("D1 Analysis database<br/>(SQLite)")]
+  d2[("D2 Analysis file store<br/>(storage/analyses)")]
+  d3[("D3 Model checkpoints")]
+  d4[("D4 Benchmark reports")]
+  d5[("D5 Bundled samples")]
+  d6[("D6 LEVIR-CD patches")]
+  user -- "T1, T2, mask, model, threshold" --> p1
+  user -- "AOI, date windows, scene choice" --> p2
+  p2 -- "search query / scene id" --> provider
+  provider -- "metadata, clipped rasters" --> p2
+  p2 -- "georeferenced T1, T2" --> p1
+  d5 -- "sample pair" --> p1
+  p1 -- "validation errors" --> user
+  p1 -- "analysis record (queued)" --> d1
+  p1 -- "normalised T1, T2, mask, geo.json" --> d2
+  d2 -- "T1, T2" --> p3
+  d3 -- "trained weights" --> p3
+  p3 -- "probability map" --> p4
+  d2 -- "ground truth, georeference" --> p4
+  p4 -- "mask, overlay, GeoTIFF, GeoJSON, results.json" --> d2
+  p4 -- "status, statistics, metrics" --> d1
+  d1 -- "analysis records" --> p5
+  d2 -- "artefact files" --> p5
+  d4 -- "benchmark summary" --> p5
+  p5 -- "results, history, comparison, downloads" --> user
+  user -- "new threshold" --> p4
+  researcher -- "training configuration" --> p6
+  d6 -- "train / val / test patches" --> p6
+  p6 -- "best-epoch weights" --> d3
+  p6 -- "metrics, confusion matrices, charts" --> d4

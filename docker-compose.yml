@@ -1,0 +1,33 @@
+# Optional. NOT built or tested in this project (Docker is not installed on the development
+# machine); native execution via scripts/start.ps1 is the supported path.
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    ports:
+      - "8000:8000"
+    environment:
+      TV_DEVICE: cpu
+      TV_CORS_ORIGINS: '["http://localhost:5173"]'
+    volumes:
+      - ./checkpoints:/app/checkpoints:ro
+      - ./reports:/app/reports:ro
+      - terravision-storage:/app/storage
+
+  frontend:
+    image: node:24-alpine
+    working_dir: /app
+    command: sh -c "npm ci && npm run dev -- --host 0.0.0.0"
+    environment:
+      TV_BACKEND_URL: http://backend:8000
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+volumes:
+  terravision-storage:

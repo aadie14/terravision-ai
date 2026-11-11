@@ -1,0 +1,12 @@
+{
+  "model": "swin_siamese",
+  "epochs": 30,
+  "batch_size": 8,
+  "grad_accum": 1,
+  "lr": 0.0002,
+  "backbone_lr_mult": 0.5,
+  "weight_decay": 0.01,
+  "warmup_epochs": 1,
+  "patience": 8,
+  "seed": 42
+}

@@ -1,0 +1,13 @@
+{
+  "model": "fc_siam_diff",
+  "model_kwargs": {"dropout": 0.1},
+  "epochs": 40,
+  "batch_size": 16,
+  "grad_accum": 1,
+  "lr": 0.001,
+  "backbone_lr_mult": 1.0,
+  "weight_decay": 0.0001,
+  "warmup_epochs": 1,
+  "patience": 10,
+  "seed": 42
+}

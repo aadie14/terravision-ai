@@ -1,0 +1,39 @@
+
+Running 9 tests using 1 worker
+
+  ok 1 e2e\demo.spec.ts:12:1 › 01 backend health and system status (2.6s)
+  x  2 e2e\demo.spec.ts:24:1 › 02 sample analysis with ground truth: Swin transformer (1.2s)
+  -  3 e2e\demo.spec.ts:71:1 › 03 model comparison shows the real benchmark and live sample evaluation
+  -  4 e2e\demo.spec.ts:81:1 › 04 manual upload of a GeoTIFF pair gives georeferenced results on the map
+  -  5 e2e\demo.spec.ts:99:1 › 05 error handling: mismatched image sizes are rejected with a clear message
+  -  6 e2e\demo.spec.ts:114:1 › 06 history, overview and research pages reflect real state
+  -  7 e2e\demo.spec.ts:128:1 › 07 satellite map: live Sentinel-2 search (online only)
+  -  8 e2e\demo.spec.ts:148:1 › 08 real Sentinel-2 test city with ground truth: OSCD-trained transformer on the map
+  -  9 e2e\demo.spec.ts:168:1 › 09 Bengaluru Sentinel-2 pair now produces detections with the Sentinel-2 model
+
+
+  1) e2e\demo.spec.ts:24:1 › 02 sample analysis with ground truth: Swin transformer ────────────────
+
+    Error: locator.click: Error: strict mode violation: getByRole('radio', { name: /Siamese Swin Transformer/ }) resolved to 2 elements:
+        1) <button role="radio" type="button" aria-checked="true" class="rounded-xl border p-4 text-left transition-colors disabled:cursor-not-allowed disabled:opacity-60 border-accent-400 bg-accent-500/10">…</button> aka getByRole('radio', { name: 'Siamese Swin Transformer LEVIR-CD · 0.5 m transformer Shared Swin-V2-Tiny' })
+        2) <button role="radio" type="button" aria-checked="false" class="rounded-xl border p-4 text-left transition-colors disabled:cursor-not-allowed disabled:opacity-60 border-ink-600 bg-ink-900/60 hover:border-ink-500">…</button> aka getByRole('radio', { name: 'Siamese Swin Transformer (' })
+
+    Call log:
+      - waiting for getByRole('radio', { name: /Siamese Swin Transformer/ })
+
+
+      27 |   await page.screenshot({ path: shot('02_sample_selection'), fullPage: true })
+      28 |   await page.getByRole('button', { name: /dense change/i }).click()
+    > 29 |   await page.getByRole('radio', { name: /Siamese Swin Transformer/ }).click()
+         |                                                                       ^
+      30 |   await page.getByRole('button', { name: /run change detection/i }).click()
+      31 |
+      32 |   await expect(page).toHaveURL(/\/results\/[0-9a-f]{32}$/)
+        at <project>\frontend\e2e\demo.spec.ts:29:71
+
+    Error Context: test-results\demo-02-sample-analysis-with-ground-truth-Swin-transformer\error-context.md
+
+  1 failed
+    e2e\demo.spec.ts:24:1 › 02 sample analysis with ground truth: Swin transformer ─────────────────
+  7 did not run
+  1 passed (5.6s)

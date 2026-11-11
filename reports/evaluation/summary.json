@@ -1,0 +1,1398 @@
+{
+  "generated_utc": "2026-11-11T16:17:51+00:00",
+  "note": "Within each dataset all models are evaluated on the same held-out test data with a fixed 0.5 threshold. The test data is never used for training or model selection.",
+  "datasets": {
+    "LEVIR-CD": {
+      "split": "test",
+      "evaluation": "256x256 test patches",
+      "models": [
+        {
+          "model": "fc_siam_diff",
+          "display_name": "FC-Siam-diff (CNN baseline)",
+          "family": "cnn",
+          "architecture": "Siamese U-Net encoder (16-32-64-128) with |difference| skip connections",
+          "parameters": 968209,
+          "checkpoint": "fc_siam_diff_levir.pt",
+          "checkpoint_sha256": "62e6a558c79159269a4fb280ea6fd21aa86aad0335694d3f654ac2ad3ef23279",
+          "checkpoint_meta": {
+            "run_name": "fc_siam_diff_levir_v2",
+            "epoch": 15,
+            "val_f1": 0.7925198561087037,
+            "val_iou": 0.6563419366505545,
+            "threshold": 0.5,
+            "dataset": "LEVIR-CD",
+            "dataset_manifest_sha256": "559981811bed1967da7667bafa6d16f670b299d44bc5dadc533859bc12605b65",
+            "seed": 42,
+            "tile_size": 256,
+            "parameters": 968209,
+            "torch": "2.11.0+cu128",
+            "saved_utc": "2026-11-11T10:40:17+00:00"
+          },
+          "dataset": "LEVIR-CD",
+          "domain": "vhr",
+          "evaluation": "256x256 test patches",
+          "split": "test",
+          "num_patches": 2048,
+          "patch_size": 256,
+          "threshold": 0.5,
+          "tp": 4673403,
+          "fp": 489037,
+          "tn": 126891287,
+          "fn": 2164001,
+          "precision": 0.9052701823168889,
+          "recall": 0.6835054649396174,
+          "f1": 0.7789106258381359,
+          "iou": 0.6378817491330374,
+          "accuracy": 0.9802333265542984,
+          "undefined": [],
+          "confusion_matrix": {
+            "labels": [
+              "no_change",
+              "change"
+            ],
+            "layout": "rows = ground truth, columns = prediction",
+            "matrix": [
+              [
+                126891287,
+                489037
+              ],
+              [
+                2164001,
+                4673403
+              ]
+            ]
+          },
+          "eval_seconds": 4.824817200002144,
+          "throughput_patches_per_s": 424.4720401011441,
+          "latency_ms_median": 5.7480999967083335,
+          "latency_ms_p95": 7.67712999586365,
+          "latency_tile": 256,
+          "latency_batch": 1,
+          "latency_runs": 30,
+          "peak_gpu_mb": 379,
+          "device": "cuda",
+          "gpu_name": "NVIDIA GeForce RTX 5050 Laptop GPU",
+          "amp": true,
+          "evaluated_utc": "2026-11-11T16:13:57+00:00"
+        },
+        {
+          "model": "swin_siamese",
+          "display_name": "Siamese Swin Transformer",
+          "family": "transformer",
+          "architecture": "Shared Swin-V2-Tiny encoder (4 stages) -> per-scale [F1, F2, |F1-F2|] fusion -> FPN decoder -> 1-channel change logits",
+          "parameters": 29976299,
+          "checkpoint": "swin_siamese_levir.pt",
+          "checkpoint_sha256": "a18cb59e29cc76bad3c3fe93b90bc13eeba4cfde35dd958d9cd143acb3319bfc",
+          "checkpoint_meta": {
+            "run_name": "swin_siamese_levir_v2",
+            "epoch": 29,
+            "val_f1": 0.9181587417276151,
+            "val_iou": 0.8487000608516652,
+            "threshold": 0.5,
+            "dataset": "LEVIR-CD",
+            "dataset_manifest_sha256": "559981811bed1967da7667bafa6d16f670b299d44bc5dadc533859bc12605b65",
+            "seed": 42,
+            "tile_size": 256,
+            "parameters": 29976299,
+            "torch": "2.11.0+cu128",
+            "saved_utc": "2026-11-11T11:58:36+00:00"
+          },
+          "dataset": "LEVIR-CD",
+          "domain": "vhr",
+          "evaluation": "256x256 test patches",
+          "split": "test",
+          "num_patches": 2048,
+          "patch_size": 256,
+          "threshold": 0.5,
+          "tp": 6172109,
+          "fp": 504153,
+          "tn": 126876171,
+          "fn": 665295,
+          "precision": 0.9244857376777604,
+          "recall": 0.9026977197778572,
+          "f1": 0.9134618244967724,
+          "iou": 0.8407084491750183,
+          "accuracy": 0.9912869334220886,
+          "undefined": [],
+          "confusion_matrix": {
+            "labels": [
+              "no_change",
+              "change"
+            ],
+            "layout": "rows = ground truth, columns = prediction",
+            "matrix": [
+              [
+                126876171,
+                504153
+              ],
+              [
+                665295,
+                6172109
+              ]
+            ]
+          },
+          "eval_seconds": 14.522114700012025,
+          "throughput_patches_per_s": 141.02629281658986,
+          "latency_ms_median": 21.879650004848372,
+          "latency_ms_p95": 23.37444500735728,
+          "latency_tile": 256,
+          "latency_batch": 1,
+          "latency_runs": 30,
+          "peak_gpu_mb": 705,
+          "device": "cuda",
+          "gpu_name": "NVIDIA GeForce RTX 5050 Laptop GPU",
+          "amp": true,
+          "evaluated_utc": "2026-11-11T16:14:17+00:00"
+        }
+      ]
+    },
+    "OSCD": {
+      "split": "test",
+      "evaluation": "whole test-city images, 256 px sliding window (overlap 64)",
+      "models": [
+        {
+          "model": "fc_siam_diff_s2",
+          "display_name": "FC-Siam-diff CNN (Sentinel-2)",
+          "family": "cnn",
+          "architecture": "Same FC-Siam-diff network, fine-tuned on OSCD Sentinel-2 RGB (10 m) urban change",
+          "parameters": 968209,
+          "checkpoint": "fc_siam_diff_oscd.pt",
+          "checkpoint_sha256": "e1a13ea0916166c5caae8159f2f4035992895435a9d21a686084d483db4d73b1",
+          "checkpoint_meta": {
+            "run_name": "fc_siam_diff_oscd_v1",
+            "epoch": 14,
+            "val_f1": 0.3297557972501539,
+            "val_iou": 0.19742969124350357,
+            "threshold": 0.05,
+            "dataset": "OSCD",
+            "initialised_from": {
+              "file": "fc_siam_diff_levir.pt",
+              "sha256": "62e6a558c79159269a4fb280ea6fd21aa86aad0335694d3f654ac2ad3ef23279",
+              "run_name": "fc_siam_diff_levir_v2",
+              "dataset": "LEVIR-CD"
+            },
+            "dataset_manifest_sha256": "1e275ffd9d4b5fc021265ee8f6dc0e11f962bfecf9b924454ffb2d65981483b2",
+            "seed": 42,
+            "tile_size": 256,
+            "parameters": 968209,
+            "torch": "2.11.0+cu128",
+            "saved_utc": "2026-11-11T16:11:47+00:00",
+            "threshold_selection": {
+              "method": "maximum F1 on the validation split (test split not used)",
+              "val_f1_at_0.5": 0.3297557972501539,
+              "val_f1_at_selected": 0.44968458123434846,
+              "grid": [
+                0.05,
+                0.95,
+                0.05
+              ]
+            }
+          },
+          "dataset": "OSCD",
+          "domain": "sentinel2",
+          "evaluation": "whole test-city images, 256 px sliding window (overlap 64)",
+          "split": "test",
+          "num_images": 10,
+          "num_pixels": 3077936,
+          "threshold": 0.05,
+          "tp": 48973,
+          "fp": 38649,
+          "tn": 2880210,
+          "fn": 110104,
+          "precision": 0.558912145351624,
+          "recall": 0.3078572012295932,
+          "f1": 0.3970263357370723,
+          "iou": 0.24768113449925655,
+          "accuracy": 0.9516711848459487,
+          "undefined": [],
+          "confusion_matrix": {
+            "labels": [
+              "no_change",
+              "change"
+            ],
+            "layout": "rows = ground truth, columns = prediction",
+            "matrix": [
+              [
+                2880210,
+                38649
+              ],
+              [
+                110104,
+                48973
+              ]
+            ]
+          },
+          "per_city": [
+            {
+              "city": "brasilia",
+              "height": 433,
+              "width": 469,
+              "f1": 0.29691244889327506,
+              "iou": 0.17433774834437085,
+              "precision": 0.5688816855753647,
+              "recall": 0.200877527661198,
+              "changed_fraction_truth": 0.02581286901027689,
+              "changed_fraction_pred": 0.009114769274708608,
+              "seconds": 0.18349659998784773
+            },
+            {
+              "city": "chongqing",
+              "height": 730,
+              "width": 544,
+              "f1": 0.1940714001651932,
+              "iou": 0.10746349561269777,
+              "precision": 0.7828232971372162,
+              "recall": 0.11076579250619828,
+              "changed_fraction_truth": 0.0721117042707494,
+              "changed_fraction_pred": 0.010203464947622885,
+              "seconds": 0.07728230000066105
+            },
+            {
+              "city": "dubai",
+              "height": 774,
+              "width": 634,
+              "f1": 0.13895891217546508,
+              "iou": 0.07466729944039074,
+              "precision": 0.6673736302580418,
+              "recall": 0.07755345149828503,
+              "changed_fraction_truth": 0.09922032295665925,
+              "changed_fraction_pred": 0.011530090724573889,
+              "seconds": 0.015780100002302788
+            },
+            {
+              "city": "lasvegas",
+              "height": 824,
+              "width": 716,
+              "f1": 0.6688750433503545,
+              "iou": 0.5024885455035486,
+              "precision": 0.7292117545826706,
+              "recall": 0.6177601060304838,
+              "changed_fraction_truth": 0.07673089439713619,
+              "changed_fraction_pred": 0.06500345772088735,
+              "seconds": 0.0194675999955507
+            },
+            {
+              "city": "milano",
+              "height": 545,
+              "width": 558,
+              "f1": 0.14742384355020685,
+              "iou": 0.07957775071051564,
+              "precision": 0.8166666666666667,
+              "recall": 0.08102521703183134,
+              "changed_fraction_truth": 0.007954358620236099,
+              "changed_fraction_pred": 0.000789188122718753,
+              "seconds": 0.11727960000280291
+            },
+            {
+              "city": "montpellier",
+              "height": 426,
+              "width": 451,
+              "f1": 0.7210168185903196,
+              "iou": 0.5637422204376631,
+              "precision": 0.8168331232425095,
+              "recall": 0.6453194423165314,
+              "changed_fraction_truth": 0.06794499443073816,
+              "changed_fraction_pred": 0.05367831527226924,
+              "seconds": 0.00808429998869542
+            },
+            {
+              "city": "norcia",
+              "height": 241,
+              "width": 385,
+              "f1": 0.09594855305466238,
+              "iou": 0.05039178600378276,
+              "precision": 0.05696395846059866,
+              "recall": 0.30399348003259985,
+              "changed_fraction_truth": 0.013224120278062187,
+              "changed_fraction_pred": 0.07057175189955273,
+              "seconds": 0.03662400000030175
+            },
+            {
+              "city": "rio",
+              "height": 353,
+              "width": 426,
+              "f1": 0.4221520524653874,
+              "iou": 0.26754926108374383,
+              "precision": 0.6862332192682284,
+              "recall": 0.30484097287184286,
+              "changed_fraction_truth": 0.05687002088071393,
+              "changed_fraction_pred": 0.025263003896846613,
+              "seconds": 0.006290300007094629
+            },
+            {
+              "city": "saclay_w",
+              "height": 639,
+              "width": 688,
+              "f1": 0.15988138629764626,
+              "iou": 0.08688645672463574,
+              "precision": 0.11585638821738742,
+              "recall": 0.2578716620167397,
+              "changed_fraction_truth": 0.011414091785857262,
+              "changed_fraction_pred": 0.02540533901080904,
+              "seconds": 0.016363800008548424
+            },
+            {
+              "city": "valencia",
+              "height": 458,
+              "width": 476,
+              "f1": 0.03388804841149773,
+              "iou": 0.017236072637734686,
+              "precision": 0.019854635702889558,
+              "recall": 0.11558307533539731,
+              "changed_fraction_truth": 0.004444791016843418,
+              "changed_fraction_pred": 0.025875197240468238,
+              "seconds": 0.016263499986962415
+            }
+          ],
+          "eval_seconds": 0.4969320999807678,
+          "latency_ms_median": 5.3444500008481555,
+          "latency_ms_p95": 5.621560003783088,
+          "latency_tile": 256,
+          "latency_batch": 1,
+          "latency_runs": 30,
+          "peak_gpu_mb": 202,
+          "device": "cuda",
+          "gpu_name": "NVIDIA GeForce RTX 5050 Laptop GPU",
+          "amp": true,
+          "evaluated_utc": "2026-11-11T16:17:49+00:00"
+        },
+        {
+          "model": "swin_siamese_s2",
+          "display_name": "Siamese Swin Transformer (Sentinel-2)",
+          "family": "transformer",
+          "architecture": "Same Siamese Swin-V2-T network, fine-tuned on OSCD Sentinel-2 RGB (10 m) urban change",
+          "parameters": 29976299,
+          "checkpoint": "swin_siamese_oscd.pt",
+          "checkpoint_sha256": "030caad23cbdcbdc093e09bf4594447d0de60e5a304c94da6cfba7f6a573465d",
+          "checkpoint_meta": {
+            "run_name": "swin_siamese_oscd_v1",
+            "epoch": 23,
+            "val_f1": 0.4534581344001812,
+            "val_iou": 0.2932077976591404,
+            "threshold": 0.2,
+            "dataset": "OSCD",
+            "initialised_from": {
+              "file": "swin_siamese_levir.pt",
+              "sha256": "a18cb59e29cc76bad3c3fe93b90bc13eeba4cfde35dd958d9cd143acb3319bfc",
+              "run_name": "swin_siamese_levir_v2",
+              "dataset": "LEVIR-CD"
+            },
+            "dataset_manifest_sha256": "1e275ffd9d4b5fc021265ee8f6dc0e11f962bfecf9b924454ffb2d65981483b2",
+            "seed": 42,
+            "tile_size": 256,
+            "parameters": 29976299,
+            "torch": "2.11.0+cu128",
+            "saved_utc": "2026-11-11T16:08:30+00:00",
+            "threshold_selection": {
+              "method": "maximum F1 on the validation split (test split not used)",
+              "val_f1_at_0.5": 0.4534581344001812,
+              "val_f1_at_selected": 0.45696611722547525,
+              "grid": [
+                0.05,
+                0.95,
+                0.05
+              ]
+            }
+          },
+          "dataset": "OSCD",
+          "domain": "sentinel2",
+          "evaluation": "whole test-city images, 256 px sliding window (overlap 64)",
+          "split": "test",
+          "num_images": 10,
+          "num_pixels": 3077936,
+          "threshold": 0.2,
+          "tp": 57825,
+          "fp": 28680,
+          "tn": 2890179,
+          "fn": 101252,
+          "precision": 0.6684584706086354,
+          "recall": 0.36350320913771317,
+          "f1": 0.4709221359871652,
+          "iou": 0.3079778650063646,
+          "accuracy": 0.957785996849837,
+          "undefined": [],
+          "confusion_matrix": {
+            "labels": [
+              "no_change",
+              "change"
+            ],
+            "layout": "rows = ground truth, columns = prediction",
+            "matrix": [
+              [
+                2890179,
+                28680
+              ],
+              [
+                101252,
+                57825
+              ]
+            ]
+          },
+          "per_city": [
+            {
+              "city": "brasilia",
+              "height": 433,
+              "width": 469,
+              "f1": 0.54142383727574,
+              "iou": 0.3712002507051081,
+              "precision": 0.6751211171273868,
+              "recall": 0.45192674551697826,
+              "changed_fraction_truth": 0.02581286901027689,
+              "changed_fraction_pred": 0.017279160121530256,
+              "seconds": 0.5258358999999473
+            },
+            {
+              "city": "chongqing",
+              "height": 730,
+              "width": 544,
+              "f1": 0.45721583652618136,
+              "iou": 0.29635761589403975,
+              "precision": 0.737599129217851,
+              "recall": 0.3312847016098055,
+              "changed_fraction_truth": 0.0721117042707494,
+              "changed_fraction_pred": 0.03238819500402901,
+              "seconds": 0.10855769999034237
+            },
+            {
+              "city": "dubai",
+              "height": 774,
+              "width": 634,
+              "f1": 0.2586318331802565,
+              "iou": 0.1485222011681741,
+              "precision": 0.7523998020781791,
+              "recall": 0.1561543675162768,
+              "changed_fraction_truth": 0.09922032295665925,
+              "changed_fraction_pred": 0.02059235892043463,
+              "seconds": 0.06913509999867529
+            },
+            {
+              "city": "lasvegas",
+              "height": 824,
+              "width": 716,
+              "f1": 0.6043085009715795,
+              "iou": 0.43298142991646466,
+              "precision": 0.8229829037048318,
+              "recall": 0.47744643251601504,
+              "changed_fraction_truth": 0.07673089439713619,
+              "changed_fraction_pred": 0.04451476650214243,
+              "seconds": 0.09149109999998473
+            },
+            {
+              "city": "milano",
+              "height": 545,
+              "width": 558,
+              "f1": 0.47407005158837906,
+              "iou": 0.3106761565836299,
+              "precision": 0.6906645569620253,
+              "recall": 0.36089293096320796,
+              "changed_fraction_truth": 0.007954358620236099,
+              "changed_fraction_pred": 0.004156390779652099,
+              "seconds": 0.09272230000351556
+            },
+            {
+              "city": "montpellier",
+              "height": 426,
+              "width": 451,
+              "f1": 0.7264705882352941,
+              "iou": 0.5704387990762124,
+              "precision": 0.8342936618319094,
+              "recall": 0.6433277156427148,
+              "changed_fraction_truth": 0.06794499443073816,
+              "changed_fraction_pred": 0.05239270062354913,
+              "seconds": 0.0348565000022063
+            },
+            {
+              "city": "norcia",
+              "height": 241,
+              "width": 385,
+              "f1": 0.3070226349390598,
+              "iou": 0.1813507027768255,
+              "precision": 0.238395673726904,
+              "recall": 0.4311328443357783,
+              "changed_fraction_truth": 0.013224120278062187,
+              "changed_fraction_pred": 0.023915503583553377,
+              "seconds": 0.044383500004187226
+            },
+            {
+              "city": "rio",
+              "height": 353,
+              "width": 426,
+              "f1": 0.5141769493305329,
+              "iou": 0.3460553052389787,
+              "precision": 0.5860263315380012,
+              "recall": 0.458021515434986,
+              "changed_fraction_truth": 0.05687002088071393,
+              "changed_fraction_pred": 0.044447991062522445,
+              "seconds": 0.022964500007219613
+            },
+            {
+              "city": "saclay_w",
+              "height": 639,
+              "width": 688,
+              "f1": 0.35505271887217155,
+              "iou": 0.21584443644220383,
+              "precision": 0.25261294672960216,
+              "recall": 0.5972499003587086,
+              "changed_fraction_truth": 0.011414091785857262,
+              "changed_fraction_pred": 0.026986206645558102,
+              "seconds": 0.07107219999306835
+            },
+            {
+              "city": "valencia",
+              "height": 458,
+              "width": 476,
+              "f1": 0.02880970432145565,
+              "iou": 0.014615384615384615,
+              "precision": 0.022768124625524265,
+              "recall": 0.0392156862745098,
+              "changed_fraction_truth": 0.004444791016843418,
+              "changed_fraction_pred": 0.007655682360280356,
+              "seconds": 0.07073210000817198
+            }
+          ],
+          "eval_seconds": 1.1317509000073187,
+          "latency_ms_median": 21.91770000354154,
+          "latency_ms_p95": 24.451894992671434,
+          "latency_tile": 256,
+          "latency_batch": 1,
+          "latency_runs": 30,
+          "peak_gpu_mb": 427,
+          "device": "cuda",
+          "gpu_name": "NVIDIA GeForce RTX 5050 Laptop GPU",
+          "amp": true,
+          "evaluated_utc": "2026-11-11T16:16:55+00:00"
+        }
+      ]
+    }
+  },
+  "cross_domain": [
+    {
+      "model": "swin_siamese",
+      "display_name": "Siamese Swin Transformer",
+      "dataset": "OSCD",
+      "precision": null,
+      "recall": 0.0,
+      "f1": 0.0,
+      "iou": 0.0,
+      "accuracy": 0.9483169890472056,
+      "tp": 0,
+      "fp": 0,
+      "tn": 2918859,
+      "fn": 159077,
+      "num_images": 10,
+      "per_city": [
+        {
+          "city": "brasilia",
+          "height": 433,
+          "width": 469,
+          "f1": 0.0,
+          "iou": 0.0,
+          "precision": null,
+          "recall": 0.0,
+          "changed_fraction_truth": 0.02581286901027689,
+          "changed_fraction_pred": 0.0,
+          "seconds": 0.03925609998987056
+        },
+        {
+          "city": "chongqing",
+          "height": 730,
+          "width": 544,
+          "f1": 0.0,
+          "iou": 0.0,
+          "precision": null,
+          "recall": 0.0,
+          "changed_fraction_truth": 0.0721117042707494,
+          "changed_fraction_pred": 0.0,
+          "seconds": 0.07782179999048822
+        },
+        {
+          "city": "dubai",
+          "height": 774,
+          "width": 634,
+          "f1": 0.0,
+          "iou": 0.0,
+          "precision": null,
+          "recall": 0.0,
+          "changed_fraction_truth": 0.09922032295665925,
+          "changed_fraction_pred": 0.0,
+          "seconds": 0.0832693999982439
+        },
+        {
+          "city": "lasvegas",
+          "height": 824,
+          "width": 716,
+          "f1": 0.0,
+          "iou": 0.0,
+          "precision": null,
+          "recall": 0.0,
+          "changed_fraction_truth": 0.07673089439713619,
+          "changed_fraction_pred": 0.0,
+          "seconds": 0.09442820001277141
+        },
+        {
+          "city": "milano",
+          "height": 545,
+          "width": 558,
+          "f1": 0.0,
+          "iou": 0.0,
+          "precision": null,
+          "recall": 0.0,
+          "changed_fraction_truth": 0.007954358620236099,
+          "changed_fraction_pred": 0.0,
+          "seconds": 0.070679199998267
+        },
+        {
+          "city": "montpellier",
+          "height": 426,
+          "width": 451,
+          "f1": 0.0,
+          "iou": 0.0,
+          "precision": null,
+          "recall": 0.0,
+          "changed_fraction_truth": 0.06794499443073816,
+          "changed_fraction_pred": 0.0,
+          "seconds": 0.03421189999789931
+        },
+        {
+          "city": "norcia",
+          "height": 241,
+          "width": 385,
+          "f1": 0.0,
+          "iou": 0.0,
+          "precision": null,
+          "recall": 0.0,
+          "changed_fraction_truth": 0.013224120278062187,
+          "changed_fraction_pred": 0.0,
+          "seconds": 0.022427399992011487
+        },
+        {
+          "city": "rio",
+          "height": 353,
+          "width": 426,
+          "f1": 0.0,
+          "iou": 0.0,
+          "precision": null,
+          "recall": 0.0,
+          "changed_fraction_truth": 0.05687002088071393,
+          "changed_fraction_pred": 0.0,
+          "seconds": 0.02291719999630004
+        },
+        {
+          "city": "saclay_w",
+          "height": 639,
+          "width": 688,
+          "f1": 0.0,
+          "iou": 0.0,
+          "precision": null,
+          "recall": 0.0,
+          "changed_fraction_truth": 0.011414091785857262,
+          "changed_fraction_pred": 0.0,
+          "seconds": 0.07081459999608342
+        },
+        {
+          "city": "valencia",
+          "height": 458,
+          "width": 476,
+          "f1": 0.0,
+          "iou": 0.0,
+          "precision": null,
+          "recall": 0.0,
+          "changed_fraction_truth": 0.004444791016843418,
+          "changed_fraction_pred": 0.0,
+          "seconds": 0.07192899999790825
+        }
+      ],
+      "trained_on": "LEVIR-CD"
+    },
+    {
+      "model": "fc_siam_diff",
+      "display_name": "FC-Siam-diff (CNN baseline)",
+      "dataset": "OSCD",
+      "precision": 1.0,
+      "recall": 0.002967116553618688,
+      "f1": 0.005916677635083893,
+      "iou": 0.002967116553618688,
+      "accuracy": 0.9484703385645445,
+      "tp": 472,
+      "fp": 0,
+      "tn": 2918859,
+      "fn": 158605,
+      "num_images": 10,
+      "per_city": [
+        {
+          "city": "brasilia",
+          "height": 433,
+          "width": 469,
+          "f1": 0.0,
+          "iou": 0.0,
+          "precision": null,
+          "recall": 0.0,
+          "changed_fraction_truth": 0.02581286901027689,
+          "changed_fraction_pred": 0.0,
+          "seconds": 0.02571989998978097
+        },
+        {
+          "city": "chongqing",
+          "height": 730,
+          "width": 544,
+          "f1": 0.0,
+          "iou": 0.0,
+          "precision": null,
+          "recall": 0.0,
+          "changed_fraction_truth": 0.0721117042707494,
+          "changed_fraction_pred": 0.0,
+          "seconds": 0.017436499998439103
+        },
+        {
+          "city": "dubai",
+          "height": 774,
+          "width": 634,
+          "f1": 0.0,
+          "iou": 0.0,
+          "precision": null,
+          "recall": 0.0,
+          "changed_fraction_truth": 0.09922032295665925,
+          "changed_fraction_pred": 0.0,
+          "seconds": 0.0161184000025969
+        },
+        {
+          "city": "lasvegas",
+          "height": 824,
+          "width": 716,
+          "f1": 0.020637488522583184,
+          "iou": 0.010426330903468081,
+          "precision": 1.0,
+          "recall": 0.010426330903468081,
+          "changed_fraction_truth": 0.07673089439713619,
+          "changed_fraction_pred": 0.0008000216955036069,
+          "seconds": 0.022439899999881163
+        },
+        {
+          "city": "milano",
+          "height": 545,
+          "width": 558,
+          "f1": 0.0,
+          "iou": 0.0,
+          "precision": null,
+          "recall": 0.0,
+          "changed_fraction_truth": 0.007954358620236099,
+          "changed_fraction_pred": 0.0,
+          "seconds": 0.01954259999911301
+        },
+        {
+          "city": "montpellier",
+          "height": 426,
+          "width": 451,
+          "f1": 0.0,
+          "iou": 0.0,
+          "precision": null,
+          "recall": 0.0,
+          "changed_fraction_truth": 0.06794499443073816,
+          "changed_fraction_pred": 0.0,
+          "seconds": 0.008636300000944175
+        },
+        {
+          "city": "norcia",
+          "height": 241,
+          "width": 385,
+          "f1": 0.0,
+          "iou": 0.0,
+          "precision": null,
+          "recall": 0.0,
+          "changed_fraction_truth": 0.013224120278062187,
+          "changed_fraction_pred": 0.0,
+          "seconds": 0.006795200009946711
+        },
+        {
+          "city": "rio",
+          "height": 353,
+          "width": 426,
+          "f1": 0.0,
+          "iou": 0.0,
+          "precision": null,
+          "recall": 0.0,
+          "changed_fraction_truth": 0.05687002088071393,
+          "changed_fraction_pred": 0.0,
+          "seconds": 0.007976099994266406
+        },
+        {
+          "city": "saclay_w",
+          "height": 639,
+          "width": 688,
+          "f1": 0.0,
+          "iou": 0.0,
+          "precision": null,
+          "recall": 0.0,
+          "changed_fraction_truth": 0.011414091785857262,
+          "changed_fraction_pred": 0.0,
+          "seconds": 0.017138299997895956
+        },
+        {
+          "city": "valencia",
+          "height": 458,
+          "width": 476,
+          "f1": 0.0,
+          "iou": 0.0,
+          "precision": null,
+          "recall": 0.0,
+          "changed_fraction_truth": 0.004444791016843418,
+          "changed_fraction_pred": 0.0,
+          "seconds": 0.01657639999757521
+        }
+      ],
+      "trained_on": "LEVIR-CD"
+    }
+  ],
+  "models": [
+    {
+      "model": "fc_siam_diff",
+      "display_name": "FC-Siam-diff (CNN baseline)",
+      "family": "cnn",
+      "architecture": "Siamese U-Net encoder (16-32-64-128) with |difference| skip connections",
+      "parameters": 968209,
+      "checkpoint": "fc_siam_diff_levir.pt",
+      "checkpoint_sha256": "62e6a558c79159269a4fb280ea6fd21aa86aad0335694d3f654ac2ad3ef23279",
+      "checkpoint_meta": {
+        "run_name": "fc_siam_diff_levir_v2",
+        "epoch": 15,
+        "val_f1": 0.7925198561087037,
+        "val_iou": 0.6563419366505545,
+        "threshold": 0.5,
+        "dataset": "LEVIR-CD",
+        "dataset_manifest_sha256": "559981811bed1967da7667bafa6d16f670b299d44bc5dadc533859bc12605b65",
+        "seed": 42,
+        "tile_size": 256,
+        "parameters": 968209,
+        "torch": "2.11.0+cu128",
+        "saved_utc": "2026-11-11T10:40:17+00:00"
+      },
+      "dataset": "LEVIR-CD",
+      "domain": "vhr",
+      "evaluation": "256x256 test patches",
+      "split": "test",
+      "num_patches": 2048,
+      "patch_size": 256,
+      "threshold": 0.5,
+      "tp": 4673403,
+      "fp": 489037,
+      "tn": 126891287,
+      "fn": 2164001,
+      "precision": 0.9052701823168889,
+      "recall": 0.6835054649396174,
+      "f1": 0.7789106258381359,
+      "iou": 0.6378817491330374,
+      "accuracy": 0.9802333265542984,
+      "undefined": [],
+      "confusion_matrix": {
+        "labels": [
+          "no_change",
+          "change"
+        ],
+        "layout": "rows = ground truth, columns = prediction",
+        "matrix": [
+          [
+            126891287,
+            489037
+          ],
+          [
+            2164001,
+            4673403
+          ]
+        ]
+      },
+      "eval_seconds": 4.824817200002144,
+      "throughput_patches_per_s": 424.4720401011441,
+      "latency_ms_median": 5.7480999967083335,
+      "latency_ms_p95": 7.67712999586365,
+      "latency_tile": 256,
+      "latency_batch": 1,
+      "latency_runs": 30,
+      "peak_gpu_mb": 379,
+      "device": "cuda",
+      "gpu_name": "NVIDIA GeForce RTX 5050 Laptop GPU",
+      "amp": true,
+      "evaluated_utc": "2026-11-11T16:13:57+00:00"
+    },
+    {
+      "model": "fc_siam_diff_s2",
+      "display_name": "FC-Siam-diff CNN (Sentinel-2)",
+      "family": "cnn",
+      "architecture": "Same FC-Siam-diff network, fine-tuned on OSCD Sentinel-2 RGB (10 m) urban change",
+      "parameters": 968209,
+      "checkpoint": "fc_siam_diff_oscd.pt",
+      "checkpoint_sha256": "e1a13ea0916166c5caae8159f2f4035992895435a9d21a686084d483db4d73b1",
+      "checkpoint_meta": {
+        "run_name": "fc_siam_diff_oscd_v1",
+        "epoch": 14,
+        "val_f1": 0.3297557972501539,
+        "val_iou": 0.19742969124350357,
+        "threshold": 0.05,
+        "dataset": "OSCD",
+        "initialised_from": {
+          "file": "fc_siam_diff_levir.pt",
+          "sha256": "62e6a558c79159269a4fb280ea6fd21aa86aad0335694d3f654ac2ad3ef23279",
+          "run_name": "fc_siam_diff_levir_v2",
+          "dataset": "LEVIR-CD"
+        },
+        "dataset_manifest_sha256": "1e275ffd9d4b5fc021265ee8f6dc0e11f962bfecf9b924454ffb2d65981483b2",
+        "seed": 42,
+        "tile_size": 256,
+        "parameters": 968209,
+        "torch": "2.11.0+cu128",
+        "saved_utc": "2026-11-11T16:11:47+00:00",
+        "threshold_selection": {
+          "method": "maximum F1 on the validation split (test split not used)",
+          "val_f1_at_0.5": 0.3297557972501539,
+          "val_f1_at_selected": 0.44968458123434846,
+          "grid": [
+            0.05,
+            0.95,
+            0.05
+          ]
+        }
+      },
+      "dataset": "OSCD",
+      "domain": "sentinel2",
+      "evaluation": "whole test-city images, 256 px sliding window (overlap 64)",
+      "split": "test",
+      "num_images": 10,
+      "num_pixels": 3077936,
+      "threshold": 0.05,
+      "tp": 48973,
+      "fp": 38649,
+      "tn": 2880210,
+      "fn": 110104,
+      "precision": 0.558912145351624,
+      "recall": 0.3078572012295932,
+      "f1": 0.3970263357370723,
+      "iou": 0.24768113449925655,
+      "accuracy": 0.9516711848459487,
+      "undefined": [],
+      "confusion_matrix": {
+        "labels": [
+          "no_change",
+          "change"
+        ],
+        "layout": "rows = ground truth, columns = prediction",
+        "matrix": [
+          [
+            2880210,
+            38649
+          ],
+          [
+            110104,
+            48973
+          ]
+        ]
+      },
+      "per_city": [
+        {
+          "city": "brasilia",
+          "height": 433,
+          "width": 469,
+          "f1": 0.29691244889327506,
+          "iou": 0.17433774834437085,
+          "precision": 0.5688816855753647,
+          "recall": 0.200877527661198,
+          "changed_fraction_truth": 0.02581286901027689,
+          "changed_fraction_pred": 0.009114769274708608,
+          "seconds": 0.18349659998784773
+        },
+        {
+          "city": "chongqing",
+          "height": 730,
+          "width": 544,
+          "f1": 0.1940714001651932,
+          "iou": 0.10746349561269777,
+          "precision": 0.7828232971372162,
+          "recall": 0.11076579250619828,
+          "changed_fraction_truth": 0.0721117042707494,
+          "changed_fraction_pred": 0.010203464947622885,
+          "seconds": 0.07728230000066105
+        },
+        {
+          "city": "dubai",
+          "height": 774,
+          "width": 634,
+          "f1": 0.13895891217546508,
+          "iou": 0.07466729944039074,
+          "precision": 0.6673736302580418,
+          "recall": 0.07755345149828503,
+          "changed_fraction_truth": 0.09922032295665925,
+          "changed_fraction_pred": 0.011530090724573889,
+          "seconds": 0.015780100002302788
+        },
+        {
+          "city": "lasvegas",
+          "height": 824,
+          "width": 716,
+          "f1": 0.6688750433503545,
+          "iou": 0.5024885455035486,
+          "precision": 0.7292117545826706,
+          "recall": 0.6177601060304838,
+          "changed_fraction_truth": 0.07673089439713619,
+          "changed_fraction_pred": 0.06500345772088735,
+          "seconds": 0.0194675999955507
+        },
+        {
+          "city": "milano",
+          "height": 545,
+          "width": 558,
+          "f1": 0.14742384355020685,
+          "iou": 0.07957775071051564,
+          "precision": 0.8166666666666667,
+          "recall": 0.08102521703183134,
+          "changed_fraction_truth": 0.007954358620236099,
+          "changed_fraction_pred": 0.000789188122718753,
+          "seconds": 0.11727960000280291
+        },
+        {
+          "city": "montpellier",
+          "height": 426,
+          "width": 451,
+          "f1": 0.7210168185903196,
+          "iou": 0.5637422204376631,
+          "precision": 0.8168331232425095,
+          "recall": 0.6453194423165314,
+          "changed_fraction_truth": 0.06794499443073816,
+          "changed_fraction_pred": 0.05367831527226924,
+          "seconds": 0.00808429998869542
+        },
+        {
+          "city": "norcia",
+          "height": 241,
+          "width": 385,
+          "f1": 0.09594855305466238,
+          "iou": 0.05039178600378276,
+          "precision": 0.05696395846059866,
+          "recall": 0.30399348003259985,
+          "changed_fraction_truth": 0.013224120278062187,
+          "changed_fraction_pred": 0.07057175189955273,
+          "seconds": 0.03662400000030175
+        },
+        {
+          "city": "rio",
+          "height": 353,
+          "width": 426,
+          "f1": 0.4221520524653874,
+          "iou": 0.26754926108374383,
+          "precision": 0.6862332192682284,
+          "recall": 0.30484097287184286,
+          "changed_fraction_truth": 0.05687002088071393,
+          "changed_fraction_pred": 0.025263003896846613,
+          "seconds": 0.006290300007094629
+        },
+        {
+          "city": "saclay_w",
+          "height": 639,
+          "width": 688,
+          "f1": 0.15988138629764626,
+          "iou": 0.08688645672463574,
+          "precision": 0.11585638821738742,
+          "recall": 0.2578716620167397,
+          "changed_fraction_truth": 0.011414091785857262,
+          "changed_fraction_pred": 0.02540533901080904,
+          "seconds": 0.016363800008548424
+        },
+        {
+          "city": "valencia",
+          "height": 458,
+          "width": 476,
+          "f1": 0.03388804841149773,
+          "iou": 0.017236072637734686,
+          "precision": 0.019854635702889558,
+          "recall": 0.11558307533539731,
+          "changed_fraction_truth": 0.004444791016843418,
+          "changed_fraction_pred": 0.025875197240468238,
+          "seconds": 0.016263499986962415
+        }
+      ],
+      "eval_seconds": 0.4969320999807678,
+      "latency_ms_median": 5.3444500008481555,
+      "latency_ms_p95": 5.621560003783088,
+      "latency_tile": 256,
+      "latency_batch": 1,
+      "latency_runs": 30,
+      "peak_gpu_mb": 202,
+      "device": "cuda",
+      "gpu_name": "NVIDIA GeForce RTX 5050 Laptop GPU",
+      "amp": true,
+      "evaluated_utc": "2026-11-11T16:17:49+00:00"
+    },
+    {
+      "model": "swin_siamese",
+      "display_name": "Siamese Swin Transformer",
+      "family": "transformer",
+      "architecture": "Shared Swin-V2-Tiny encoder (4 stages) -> per-scale [F1, F2, |F1-F2|] fusion -> FPN decoder -> 1-channel change logits",
+      "parameters": 29976299,
+      "checkpoint": "swin_siamese_levir.pt",
+      "checkpoint_sha256": "a18cb59e29cc76bad3c3fe93b90bc13eeba4cfde35dd958d9cd143acb3319bfc",
+      "checkpoint_meta": {
+        "run_name": "swin_siamese_levir_v2",
+        "epoch": 29,
+        "val_f1": 0.9181587417276151,
+        "val_iou": 0.8487000608516652,
+        "threshold": 0.5,
+        "dataset": "LEVIR-CD",
+        "dataset_manifest_sha256": "559981811bed1967da7667bafa6d16f670b299d44bc5dadc533859bc12605b65",
+        "seed": 42,
+        "tile_size": 256,
+        "parameters": 29976299,
+        "torch": "2.11.0+cu128",
+        "saved_utc": "2026-11-11T11:58:36+00:00"
+      },
+      "dataset": "LEVIR-CD",
+      "domain": "vhr",
+      "evaluation": "256x256 test patches",
+      "split": "test",
+      "num_patches": 2048,
+      "patch_size": 256,
+      "threshold": 0.5,
+      "tp": 6172109,
+      "fp": 504153,
+      "tn": 126876171,
+      "fn": 665295,
+      "precision": 0.9244857376777604,
+      "recall": 0.9026977197778572,
+      "f1": 0.9134618244967724,
+      "iou": 0.8407084491750183,
+      "accuracy": 0.9912869334220886,
+      "undefined": [],
+      "confusion_matrix": {
+        "labels": [
+          "no_change",
+          "change"
+        ],
+        "layout": "rows = ground truth, columns = prediction",
+        "matrix": [
+          [
+            126876171,
+            504153
+          ],
+          [
+            665295,
+            6172109
+          ]
+        ]
+      },
+      "eval_seconds": 14.522114700012025,
+      "throughput_patches_per_s": 141.02629281658986,
+      "latency_ms_median": 21.879650004848372,
+      "latency_ms_p95": 23.37444500735728,
+      "latency_tile": 256,
+      "latency_batch": 1,
+      "latency_runs": 30,
+      "peak_gpu_mb": 705,
+      "device": "cuda",
+      "gpu_name": "NVIDIA GeForce RTX 5050 Laptop GPU",
+      "amp": true,
+      "evaluated_utc": "2026-11-11T16:14:17+00:00"
+    },
+    {
+      "model": "swin_siamese_s2",
+      "display_name": "Siamese Swin Transformer (Sentinel-2)",
+      "family": "transformer",
+      "architecture": "Same Siamese Swin-V2-T network, fine-tuned on OSCD Sentinel-2 RGB (10 m) urban change",
+      "parameters": 29976299,
+      "checkpoint": "swin_siamese_oscd.pt",
+      "checkpoint_sha256": "030caad23cbdcbdc093e09bf4594447d0de60e5a304c94da6cfba7f6a573465d",
+      "checkpoint_meta": {
+        "run_name": "swin_siamese_oscd_v1",
+        "epoch": 23,
+        "val_f1": 0.4534581344001812,
+        "val_iou": 0.2932077976591404,
+        "threshold": 0.2,
+        "dataset": "OSCD",
+        "initialised_from": {
+          "file": "swin_siamese_levir.pt",
+          "sha256": "a18cb59e29cc76bad3c3fe93b90bc13eeba4cfde35dd958d9cd143acb3319bfc",
+          "run_name": "swin_siamese_levir_v2",
+          "dataset": "LEVIR-CD"
+        },
+        "dataset_manifest_sha256": "1e275ffd9d4b5fc021265ee8f6dc0e11f962bfecf9b924454ffb2d65981483b2",
+        "seed": 42,
+        "tile_size": 256,
+        "parameters": 29976299,
+        "torch": "2.11.0+cu128",
+        "saved_utc": "2026-11-11T16:08:30+00:00",
+        "threshold_selection": {
+          "method": "maximum F1 on the validation split (test split not used)",
+          "val_f1_at_0.5": 0.4534581344001812,
+          "val_f1_at_selected": 0.45696611722547525,
+          "grid": [
+            0.05,
+            0.95,
+            0.05
+          ]
+        }
+      },
+      "dataset": "OSCD",
+      "domain": "sentinel2",
+      "evaluation": "whole test-city images, 256 px sliding window (overlap 64)",
+      "split": "test",
+      "num_images": 10,
+      "num_pixels": 3077936,
+      "threshold": 0.2,
+      "tp": 57825,
+      "fp": 28680,
+      "tn": 2890179,
+      "fn": 101252,
+      "precision": 0.6684584706086354,
+      "recall": 0.36350320913771317,
+      "f1": 0.4709221359871652,
+      "iou": 0.3079778650063646,
+      "accuracy": 0.957785996849837,
+      "undefined": [],
+      "confusion_matrix": {
+        "labels": [
+          "no_change",
+          "change"
+        ],
+        "layout": "rows = ground truth, columns = prediction",
+        "matrix": [
+          [
+            2890179,
+            28680
+          ],
+          [
+            101252,
+            57825
+          ]
+        ]
+      },
+      "per_city": [
+        {
+          "city": "brasilia",
+          "height": 433,
+          "width": 469,
+          "f1": 0.54142383727574,
+          "iou": 0.3712002507051081,
+          "precision": 0.6751211171273868,
+          "recall": 0.45192674551697826,
+          "changed_fraction_truth": 0.02581286901027689,
+          "changed_fraction_pred": 0.017279160121530256,
+          "seconds": 0.5258358999999473
+        },
+        {
+          "city": "chongqing",
+          "height": 730,
+          "width": 544,
+          "f1": 0.45721583652618136,
+          "iou": 0.29635761589403975,
+          "precision": 0.737599129217851,
+          "recall": 0.3312847016098055,
+          "changed_fraction_truth": 0.0721117042707494,
+          "changed_fraction_pred": 0.03238819500402901,
+          "seconds": 0.10855769999034237
+        },
+        {
+          "city": "dubai",
+          "height": 774,
+          "width": 634,
+          "f1": 0.2586318331802565,
+          "iou": 0.1485222011681741,
+          "precision": 0.7523998020781791,
+          "recall": 0.1561543675162768,
+          "changed_fraction_truth": 0.09922032295665925,
+          "changed_fraction_pred": 0.02059235892043463,
+          "seconds": 0.06913509999867529
+        },
+        {
+          "city": "lasvegas",
+          "height": 824,
+          "width": 716,
+          "f1": 0.6043085009715795,
+          "iou": 0.43298142991646466,
+          "precision": 0.8229829037048318,
+          "recall": 0.47744643251601504,
+          "changed_fraction_truth": 0.07673089439713619,
+          "changed_fraction_pred": 0.04451476650214243,
+          "seconds": 0.09149109999998473
+        },
+        {
+          "city": "milano",
+          "height": 545,
+          "width": 558,
+          "f1": 0.47407005158837906,
+          "iou": 0.3106761565836299,
+          "precision": 0.6906645569620253,
+          "recall": 0.36089293096320796,
+          "changed_fraction_truth": 0.007954358620236099,
+          "changed_fraction_pred": 0.004156390779652099,
+          "seconds": 0.09272230000351556
+        },
+        {
+          "city": "montpellier",
+          "height": 426,
+          "width": 451,
+          "f1": 0.7264705882352941,
+          "iou": 0.5704387990762124,
+          "precision": 0.8342936618319094,
+          "recall": 0.6433277156427148,
+          "changed_fraction_truth": 0.06794499443073816,
+          "changed_fraction_pred": 0.05239270062354913,
+          "seconds": 0.0348565000022063
+        },
+        {
+          "city": "norcia",
+          "height": 241,
+          "width": 385,
+          "f1": 0.3070226349390598,
+          "iou": 0.1813507027768255,
+          "precision": 0.238395673726904,
+          "recall": 0.4311328443357783,
+          "changed_fraction_truth": 0.013224120278062187,
+          "changed_fraction_pred": 0.023915503583553377,
+          "seconds": 0.044383500004187226
+        },
+        {
+          "city": "rio",
+          "height": 353,
+          "width": 426,
+          "f1": 0.5141769493305329,
+          "iou": 0.3460553052389787,
+          "precision": 0.5860263315380012,
+          "recall": 0.458021515434986,
+          "changed_fraction_truth": 0.05687002088071393,
+          "changed_fraction_pred": 0.044447991062522445,
+          "seconds": 0.022964500007219613
+        },
+        {
+          "city": "saclay_w",
+          "height": 639,
+          "width": 688,
+          "f1": 0.35505271887217155,
+          "iou": 0.21584443644220383,
+          "precision": 0.25261294672960216,
+          "recall": 0.5972499003587086,
+          "changed_fraction_truth": 0.011414091785857262,
+          "changed_fraction_pred": 0.026986206645558102,
+          "seconds": 0.07107219999306835
+        },
+        {
+          "city": "valencia",
+          "height": 458,
+          "width": 476,
+          "f1": 0.02880970432145565,
+          "iou": 0.014615384615384615,
+          "precision": 0.022768124625524265,
+          "recall": 0.0392156862745098,
+          "changed_fraction_truth": 0.004444791016843418,
+          "changed_fraction_pred": 0.007655682360280356,
+          "seconds": 0.07073210000817198
+        }
+      ],
+      "eval_seconds": 1.1317509000073187,
+      "latency_ms_median": 21.91770000354154,
+      "latency_ms_p95": 24.451894992671434,
+      "latency_tile": 256,
+      "latency_batch": 1,
+      "latency_runs": 30,
+      "peak_gpu_mb": 427,
+      "device": "cuda",
+      "gpu_name": "NVIDIA GeForce RTX 5050 Laptop GPU",
+      "amp": true,
+      "evaluated_utc": "2026-11-11T16:16:55+00:00"
+    }
+  ]
+}

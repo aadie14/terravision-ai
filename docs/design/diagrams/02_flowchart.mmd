@@ -1,0 +1,45 @@
+flowchart TD
+  start([Start analysis request]) --> mode{Input mode?}
+  mode -- Upload --> read["Read files with size limit"]
+  mode -- Bundled sample --> sample["Load sample files from manifest"]
+  mode -- Satellite map --> aoi{"AOI size and dates valid?"}
+  aoi -- No --> e1[/"422 AOI / validation error"/]
+  aoi -- Yes --> fetch["Provider.retrieve T1 and T2<br/>clipped to AOI"]
+  fetch --> pok{"Provider OK and<br/>scene covers AOI?"}
+  pok -- No --> e2[/"502 / 504 / 422 provider error"/]
+  pok -- Yes --> order["Order scenes by acquisition date"]
+  read --> fmt{"Extension, magic bytes,<br/>integrity, size OK?"}
+  fmt -- No --> e3[/"413 / 415 / 422 error envelope"/]
+  fmt -- Yes --> geo
+  sample --> geo
+  order --> geo
+  geo{"Both images georeferenced?"}
+  geo -- Yes --> grid{"Same CRS and grid?"}
+  grid -- Yes --> model
+  grid -- No --> ov{"Footprint overlap >= 90%?"}
+  ov -- No --> e4[/"422 GEOSPATIAL_MISALIGNMENT"/]
+  ov -- Yes --> warp["Reproject / resample T2 onto T1 grid<br/>(warning recorded)"] --> model
+  geo -- No --> dims{"Identical dimensions?"}
+  dims -- No --> e5[/"422 IMAGE_DIMENSION_MISMATCH"/]
+  dims -- Yes --> model
+  model{"Model has a trained<br/>checkpoint?"}
+  model -- No --> e6[/"503 MODEL_UNAVAILABLE"/]
+  model -- Yes --> store["Save T1, T2, mask, geo.json<br/>insert row: status = queued"]
+  store --> resp[/"202 Accepted + analysis id"/]
+  store --> worker["Background worker: status = running"]
+  worker --> tiles["Cut into 256x256 tiles with 64 px overlap<br/>(pad if smaller than a tile)"]
+  tiles --> fwd["Siamese forward pass per batch<br/>(AMP on CUDA, OOM: retry with batch 1)"]
+  fwd --> blend["Sigmoid, Hann-weighted blend<br/>gives probability map"]
+  blend --> thr["Threshold gives binary change mask"]
+  thr --> gt{"Ground truth provided?"}
+  gt -- Yes --> met["Precision, recall, F1, IoU, accuracy,<br/>confusion matrix, error map"]
+  gt -- No --> desc["Descriptive statistics only"]
+  met --> isgeo
+  desc --> isgeo
+  isgeo{"Georeferenced?"}
+  isgeo -- Yes --> gexp["GeoTIFF mask, GeoJSON regions,<br/>geodesic area, Web-Mercator overlay"]
+  isgeo -- No --> png["PNG artefacts only"]
+  gexp --> done
+  png --> done
+  done["Write results.json, status = completed"] --> finish([Results page polls and renders])
+  worker -. exception .-> failed["status = failed + error code"]

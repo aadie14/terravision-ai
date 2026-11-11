@@ -1,0 +1,14 @@
+
+Running 9 tests using 1 worker
+
+  ok 1 e2e\demo.spec.ts:12:1 › 01 backend health and system status (1.3s)
+  ok 2 e2e\demo.spec.ts:24:1 › 02 sample analysis with ground truth: Swin transformer (8.1s)
+  ok 3 e2e\demo.spec.ts:71:1 › 03 model comparison shows the real benchmark and live sample evaluation (1.9s)
+  ok 4 e2e\demo.spec.ts:83:1 › 04 manual upload of a GeoTIFF pair gives georeferenced results on the map (4.8s)
+  ok 5 e2e\demo.spec.ts:101:1 › 05 error handling: mismatched image sizes are rejected with a clear message (1.2s)
+  ok 6 e2e\demo.spec.ts:116:1 › 06 history, overview and research pages reflect real state (1.9s)
+  ok 7 e2e\demo.spec.ts:130:1 › 07 satellite map: live Sentinel-2 search (online only) (4.9s)
+  ok 8 e2e\demo.spec.ts:150:1 › 08 real Sentinel-2 test city with ground truth: OSCD-trained transformer on the map (5.0s)
+  ok 9 e2e\demo.spec.ts:170:1 › 09 Bengaluru Sentinel-2 pair now produces detections with the Sentinel-2 model (6.1s)
+
+  9 passed (38.2s)

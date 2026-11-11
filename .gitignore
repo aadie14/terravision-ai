@@ -1,0 +1,40 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Node
+node_modules/
+frontend/dist/
+frontend/coverage/
+frontend/test-results/
+frontend/playwright-report/
+
+# Data and model artefacts (re-creatable; see docs/Implementation_Guide.md)
+data/raw/
+data/processed/
+checkpoints/*.pt
+checkpoints/*.pth
+storage/
+*.sqlite3
+*.db
+
+# Local config
+.env
+.claude/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Local tool state
+frontend/test-results/
+frontend/playwright-report/
+evidence/tests/backend_coverage_html/
+
+# Personal / institutional documents - kept locally, never published
+private/

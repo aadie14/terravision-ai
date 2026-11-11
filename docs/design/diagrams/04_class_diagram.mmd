@@ -1,0 +1,216 @@
+classDiagram
+  direction LR
+  class Settings {
+    +device: str
+    +max_upload_mb: int
+    +tile_overlap: int
+    +default_model: str
+    +db_url()
+    +resolve(path)
+  }
+  class AppState {
+    +settings
+    +db
+    +models
+    +analyses
+    +samples
+    +providers
+  }
+  class Database {
+    +engine
+    +create_all()
+    +session()
+    +ping()
+  }
+  class Analysis {
+    +id: str
+    +status: str
+    +source: str
+    +model_key: str
+    +threshold: float
+    +georeferenced: bool
+    +has_ground_truth: bool
+    +changed_fraction: float
+    +inputs: JSON
+    +results: JSON
+  }
+  class EvaluationRun {
+    +id: str
+    +dataset: str
+    +num_pairs: int
+    +threshold: float
+    +results: JSON
+  }
+  class AnalysisService {
+    -executor: ThreadPoolExecutor
+    +create(t1, t2, truth, model_key, threshold)
+    +rerun(source_id, model_key, threshold)
+    +run(id)
+    +rethreshold(id, threshold)
+    +artifact_path(id, name)
+    +delete(id)
+    +recover_interrupted()
+    +cleanup_orphans()
+  }
+  class ModelManager {
+    -loaded: dict
+    -infer_lock: Lock
+    +device()
+    +describe(key)
+    +list_models()
+    +get(key)
+    +predict(key, t1, t2)
+    +unload_all()
+  }
+  class LoadedModel {
+    +spec: ModelSpec
+    +module: Module
+    +info: dict
+    +parameters: int
+    +mtime: float
+  }
+  class ModelSpec {
+    +key: str
+    +display_name: str
+    +family: str
+    +tile_size: int
+    +builder
+    +default_checkpoint: str
+  }
+  class SiameseSwinCD {
+    +encoder: SwinV2Tiny
+    +fusions: TemporalFusion x4
+    +decoder: FPNDecoder
+    +head
+    +encode(x)
+    +forward(t1, t2)
+    +param_groups(lr)
+  }
+  class TemporalFusion {
+    +project: Conv1x1
+    +refine: Conv3x3
+    +forward(f1, f2)
+  }
+  class FPNDecoder {
+    +smooth: Conv x4
+    +aggregate
+    +forward(feats)
+  }
+  class FCSiamDiff {
+    +enc1..enc4
+    +up4..up1
+    +head
+    +encode(x)
+    +forward(t1, t2)
+  }
+  class LoadedImage {
+    +array: uint8 HxWx3
+    +format: str
+    +geo: GeoInfo
+    +notes: list
+  }
+  class GeoInfo {
+    +crs: CRS
+    +transform: Affine
+    +width: int
+    +height: int
+    +bounds()
+    +resolution()
+    +bounds_wgs84()
+    +describe()
+  }
+  class InferenceResult {
+    +probability: float32 HxW
+    +seconds: float
+    +tiles: int
+    +device: str
+    +amp: bool
+  }
+  class ConfusionCounts {
+    +tp: int
+    +fp: int
+    +tn: int
+    +fn: int
+    +update(pred, target)
+  }
+  class BinaryMetrics {
+    +precision
+    +recall
+    +f1
+    +iou
+    +accuracy
+    +undefined: list
+    +to_dict()
+  }
+  class SatelliteProvider {
+    <<abstract>>
+    +key: str
+    +name: str
+    +requires_credentials: bool
+    +configured()
+    +search(query)
+    +retrieve(scene_id, bbox)
+    +describe()
+  }
+  class EarthSearchProvider {
+    +base_url: str
+    +search(query)
+    +retrieve(scene_id, bbox)
+  }
+  class CDSEProvider {
+    +stac_url: str
+    +token_url: str
+    +process_url: str
+    +search(query)
+    +retrieve(scene_id, bbox)
+  }
+  class ProviderRegistry {
+    +list()
+    +get(key)
+    +geocode(text)
+  }
+  class SceneCandidate {
+    +id: str
+    +acquired: str
+    +cloud_cover: float
+    +crs: str
+    +aoi_coverage: float
+  }
+  class SampleService {
+    +list()
+    +get(id)
+    +path(id, role)
+  }
+  class AppError {
+    +code: str
+    +message: str
+    +status: int
+    +details: dict
+  }
+  AppState o-- Settings
+  AppState o-- Database
+  AppState o-- ModelManager
+  AppState o-- AnalysisService
+  AppState o-- SampleService
+  AppState o-- ProviderRegistry
+  Database "1" --> "*" Analysis
+  Database "1" --> "*" EvaluationRun
+  AnalysisService --> Database
+  AnalysisService --> ModelManager
+  AnalysisService ..> LoadedImage
+  AnalysisService ..> BinaryMetrics
+  ModelManager "1" o-- "*" LoadedModel
+  LoadedModel --> ModelSpec
+  ModelSpec ..> SiameseSwinCD : builds
+  ModelSpec ..> FCSiamDiff : builds
+  ModelManager ..> InferenceResult
+  SiameseSwinCD *-- TemporalFusion
+  SiameseSwinCD *-- FPNDecoder
+  LoadedImage o-- GeoInfo
+  BinaryMetrics ..> ConfusionCounts
+  SatelliteProvider <|-- EarthSearchProvider
+  SatelliteProvider <|-- CDSEProvider
+  ProviderRegistry o-- SatelliteProvider
+  SatelliteProvider ..> SceneCandidate
+  SatelliteProvider ..> LoadedImage
+  SatelliteProvider ..> AppError

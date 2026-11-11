@@ -1,0 +1,14 @@
+flowchart LR
+  user[/"User (analyst / evaluator)"/]
+  provider[/"Satellite imagery provider<br/>(Earth Search / CDSE)"/]
+  geocoder[/"Geocoding service<br/>(Nominatim)"/]
+  researcher[/"Researcher (training CLI)"/]
+  system(("0<br/>TerraVision AI<br/>change-detection system"))
+  user -- "image pair, ground-truth mask,<br/>AOI, dates, model, threshold" --> system
+  system -- "change mask, overlay, statistics,<br/>metrics, downloads, history, errors" --> user
+  system -- "STAC search query, scene request" --> provider
+  provider -- "scene metadata, georeferenced imagery" --> system
+  system -- "place name" --> geocoder
+  geocoder -- "coordinates, bounding box" --> system
+  researcher -- "LEVIR-CD dataset, training config" --> system
+  system -- "checkpoints, training logs,<br/>benchmark reports" --> researcher

@@ -1,0 +1,43 @@
+{
+  "model": "fc_siam_diff_s2",
+  "model_kwargs": {
+    "dropout": 0.1
+  },
+  "init_checkpoint": "checkpoints/fc_siam_diff_levir.pt",
+  "data_root": "data/processed/oscd256",
+  "epochs": 120,
+  "batch_size": 16,
+  "grad_accum": 1,
+  "lr": 0.0005,
+  "backbone_lr_mult": 1.0,
+  "weight_decay": 0.0001,
+  "warmup_epochs": 2,
+  "amp": true,
+  "patience": 25,
+  "seed": 42,
+  "threshold": 0.5,
+  "num_workers": 0,
+  "limit_train": null,
+  "limit_val": null,
+  "run_name": "fc_siam_diff_oscd_v1",
+  "checkpoint_dir": "checkpoints",
+  "experiment_dir": "experiments",
+  "device": "cuda",
+  "gpu_name": "NVIDIA GeForce RTX 5050 Laptop GPU",
+  "gpu_free_mb": 7070,
+  "gpu_total_mb": 8150,
+  "parameters": 968209,
+  "train_patches": 279,
+  "val_patches": 70,
+  "dataset": "OSCD",
+  "initialised_from": {
+    "file": "fc_siam_diff_levir.pt",
+    "sha256": "62e6a558c79159269a4fb280ea6fd21aa86aad0335694d3f654ac2ad3ef23279",
+    "run_name": "fc_siam_diff_levir_v2",
+    "dataset": "LEVIR-CD"
+  },
+  "dataset_manifest_sha256": "1e275ffd9d4b5fc021265ee8f6dc0e11f962bfecf9b924454ffb2d65981483b2",
+  "torch": "2.11.0+cu128",
+  "python": "3.12.10",
+  "started_utc": "2026-11-11T16:10:57+00:00"
+}

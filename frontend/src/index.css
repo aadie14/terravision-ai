@@ -1,0 +1,115 @@
+@import 'tailwindcss';
+@import 'leaflet/dist/leaflet.css';
+
+@theme {
+  --font-sans: 'Inter', 'Segoe UI Variable Text', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Cascadia Code', Consolas, monospace;
+
+  --color-ink-950: #060a12;
+  --color-ink-900: #0a101c;
+  --color-ink-850: #0e1626;
+  --color-ink-800: #131d31;
+  --color-ink-700: #1c2942;
+  --color-ink-600: #2a3a58;
+  --color-ink-500: #45587a;
+  --color-ink-400: #7186a8;
+  --color-ink-300: #9fb0cc;
+  --color-ink-200: #c9d5e8;
+  --color-ink-100: #e8eef8;
+
+  --color-accent-300: #5eead4;
+  --color-accent-400: #2dd4bf;
+  --color-accent-500: #14b8a6;
+  --color-accent-600: #0d9488;
+
+  --color-change: #ff3b5c;
+  --color-ok: #34d399;
+  --color-warn: #fbbf24;
+  --color-bad: #f87171;
+  --color-info: #60a5fa;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-ink-950);
+  color: var(--color-ink-100);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'cv11', 'ss01';
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-accent-400) 35%, transparent);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-ink-600) transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent-400);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.pixelated {
+  image-rendering: pixelated;
+}
+
+/* Leaflet on a dark UI */
+.leaflet-container {
+  background: var(--color-ink-900);
+  font-family: var(--font-sans);
+  border-radius: 0.75rem;
+}
+.leaflet-control-attribution {
+  background: rgba(10, 16, 28, 0.78) !important;
+  color: var(--color-ink-300) !important;
+}
+.leaflet-control-attribution a {
+  color: var(--color-accent-300) !important;
+}
+.leaflet-bar a {
+  background: var(--color-ink-800) !important;
+  color: var(--color-ink-100) !important;
+  border-color: var(--color-ink-600) !important;
+}
+.leaflet-container.drawing {
+  cursor: crosshair !important;
+}
+
+@keyframes indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(350%);
+  }
+}
+.progress-indeterminate {
+  animation: indeterminate 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

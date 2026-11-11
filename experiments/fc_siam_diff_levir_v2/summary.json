@@ -1,0 +1,9 @@
+{
+  "run_name": "fc_siam_diff_levir_v2",
+  "model": "fc_siam_diff",
+  "best_epoch": 15,
+  "best_val_f1": 0.7925198561087037,
+  "epochs_run": 25,
+  "checkpoint": "checkpoints/fc_siam_diff_levir.pt",
+  "finished_utc": "2026-11-11T11:08:45+00:00"
+}

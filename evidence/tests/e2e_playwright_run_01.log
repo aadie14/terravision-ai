@@ -1,0 +1,42 @@
+
+Running 7 tests using 1 worker
+
+  ok 1 e2e\demo.spec.ts:12:1 › 01 backend health and system status (1.7s)
+  ok 2 e2e\demo.spec.ts:24:1 › 02 sample analysis with ground truth: Swin transformer (17.8s)
+  ok 3 e2e\demo.spec.ts:71:1 › 03 model comparison shows the real benchmark and live sample evaluation (2.0s)
+  ok 4 e2e\demo.spec.ts:81:1 › 04 manual upload of a GeoTIFF pair gives georeferenced results on the map (7.4s)
+  ok 5 e2e\demo.spec.ts:99:1 › 05 error handling: mismatched image sizes are rejected with a clear message (1.4s)
+  x  6 e2e\demo.spec.ts:114:1 › 06 history, overview and research pages reflect real state (2.4s)
+  -  7 e2e\demo.spec.ts:128:1 › 07 satellite map: live Sentinel-2 search (online only)
+
+
+  1) e2e\demo.spec.ts:114:1 › 06 history, overview and research pages reflect real state ───────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('Literature')
+    Expected: visible
+    Error: strict mode violation: getByText('Literature') resolved to 2 elements:
+        1) <p class="mt-1 max-w-3xl text-sm text-ink-400">Vision Transformers for Satellite Land-Use Monito…</p> aka getByText('Vision Transformers for')
+        2) <h2 class="truncate text-sm font-semibold tracking-wide text-ink-100">Literature</h2> aka getByRole('heading', { name: 'Literature' })
+
+    Call log:
+      - Expect "toBeVisible" getByText('Literature') with timeout 5000ms
+      - waiting for getByText('Literature')
+
+
+      122 |   await page.screenshot({ path: shot('16_overview_dashboard'), fullPage: true })
+      123 |   await page.goto('/research')
+    > 124 |   await expect(page.getByText('Literature')).toBeVisible()
+          |                                              ^
+      125 |   await page.screenshot({ path: shot('17_research_and_models'), fullPage: true })
+      126 | })
+      127 |
+        at <project>\frontend\e2e\demo.spec.ts:124:46
+
+    Error Context: test-results\demo-06-history-overview-a-21af0-ch-pages-reflect-real-state\error-context.md
+
+  1 failed
+    e2e\demo.spec.ts:114:1 › 06 history, overview and research pages reflect real state ────────────
+  1 did not run
+  5 passed (34.4s)

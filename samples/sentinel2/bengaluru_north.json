@@ -1,0 +1,19 @@
+{
+  "id": "sentinel2-bengaluru-north",
+  "name": "Sentinel-2 north Bengaluru 2019 vs 2025 (georeferenced)",
+  "description": "Sentinel-2 L2A true-colour, 657x560 px at 10 m/pixel, EPSG:32643. Scenes S2A_43PGQ_20190315_0_L2A and S2B_43PGQ_20250206_0_L2A. No ground truth. Demonstrates the GeoTIFF / map workflow; the models were trained on 0.5 m imagery, so this is out-of-distribution.",
+  "dataset": "Sentinel-2 L2A (Earth Search)",
+  "split": null,
+  "in_training_domain": false,
+  "georeferenced": true,
+  "resolution_note": "10 m/pixel",
+  "t1": "sentinel2/bengaluru_north_t1.tif",
+  "t2": "sentinel2/bengaluru_north_t2.tif",
+  "ground_truth": null,
+  "t1_date": "2019-03-15",
+  "t2_date": "2025-02-06",
+  "license": "Copernicus Sentinel data: free, full and open access; attribution required.",
+  "attribution": "Contains modified Copernicus Sentinel data 2019, 2025; retrieved via Element 84 Earth Search (AWS Open Data).",
+  "source_url": "https://earth-search.aws.element84.com/v1",
+  "alignment_notes": []
+}

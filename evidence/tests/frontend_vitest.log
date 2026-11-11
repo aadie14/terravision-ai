@@ -1,0 +1,18 @@
+
+ RUN  v5.1.0 <project>/frontend
+      Coverage enabled with v8
+
+
+ Test Files  1 passed (1)
+      Tests  22 passed (22)
+   Start at  22:53:09
+   Duration  7.29s (environment 35%, setup 21%, import 19%, tests 17%, transform 7%, worker 1%)
+
+[34m % [39m[2mCoverage report from [22m[33mv8[39m
+
+=============================== Coverage summary ===============================
+Statements   : 55.28% ( 434/785 )
+Branches     : 48.88% ( 394/806 )
+Functions    : 48.16% ( 131/272 )
+Lines        : 58.09% ( 384/661 )
+================================================================================

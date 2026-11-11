@@ -1,0 +1,9 @@
+{
+  "run_name": "fc_siam_diff_oscd_v1",
+  "model": "fc_siam_diff_s2",
+  "best_epoch": 14,
+  "best_val_f1": 0.3297557972501539,
+  "epochs_run": 39,
+  "checkpoint": "checkpoints/fc_siam_diff_oscd.pt",
+  "finished_utc": "2026-11-11T16:13:22+00:00"
+}

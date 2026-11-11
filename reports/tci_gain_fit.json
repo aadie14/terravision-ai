@@ -1,0 +1,61 @@
+{
+  "scenes": [
+    {
+      "scene": "S2A_43PGQ_20190315_0_L2A",
+      "processing_baseline": "02.11",
+      "bands": [
+        {
+          "band": "red",
+          "gain": 0.10158188077301417,
+          "dn_for_255": 2510.2902019485177,
+          "rmse": 4.51890531078046,
+          "pixels": 312024
+        },
+        {
+          "band": "green",
+          "gain": 0.1019140809673468,
+          "dn_for_255": 2502.107633995167,
+          "rmse": 1.796454369945279,
+          "pixels": 351273
+        },
+        {
+          "band": "blue",
+          "gain": 0.10204264405514395,
+          "dn_for_255": 2498.9552393624544,
+          "rmse": 3.7200821996066513,
+          "pixels": 363086
+        }
+      ]
+    },
+    {
+      "scene": "S2B_43PGQ_20250206_0_L2A",
+      "processing_baseline": "05.11",
+      "bands": [
+        {
+          "band": "red",
+          "gain": 0.10183698397191158,
+          "dn_for_255": 2504.001886685229,
+          "rmse": 2.577837794298973,
+          "pixels": 342099
+        },
+        {
+          "band": "green",
+          "gain": 0.10195909828879662,
+          "dn_for_255": 2501.0028950797387,
+          "rmse": 1.3959495734450904,
+          "pixels": 358134
+        },
+        {
+          "band": "blue",
+          "gain": 0.10202723319143454,
+          "dn_for_255": 2499.33269798213,
+          "rmse": 3.4896840572318863,
+          "pixels": 363951
+        }
+      ]
+    }
+  ],
+  "mean_gain": 0.10189365354127461,
+  "dn_for_255": 2502.6092512887053,
+  "note": "OSCD images are Level-1C (top of atmosphere) while these TCIs are Level-2A (bottom of atmosphere): the gain matches the DN scale, not the atmospheric correction."
+}

@@ -1,0 +1,14 @@
+{
+  "model": "swin_siamese_s2",
+  "data_root": "data/processed/oscd256",
+  "init_checkpoint": "checkpoints/swin_siamese_levir.pt",
+  "epochs": 80,
+  "batch_size": 8,
+  "grad_accum": 1,
+  "lr": 0.0001,
+  "backbone_lr_mult": 0.5,
+  "weight_decay": 0.01,
+  "warmup_epochs": 2,
+  "patience": 20,
+  "seed": 42
+}

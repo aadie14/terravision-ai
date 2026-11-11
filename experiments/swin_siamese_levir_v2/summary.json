@@ -1,0 +1,9 @@
+{
+  "run_name": "swin_siamese_levir_v2",
+  "model": "swin_siamese",
+  "best_epoch": 29,
+  "best_val_f1": 0.9181587417276151,
+  "epochs_run": 30,
+  "checkpoint": "checkpoints/swin_siamese_levir.pt",
+  "finished_utc": "2026-11-11T12:01:37+00:00"
+}

@@ -1,0 +1,54 @@
+flowchart LR
+  user([Analyst / evaluator])
+  subgraph FE["Frontend - React + Vite + TypeScript (port 5173)"]
+    pages["Pages: Overview, New Analysis, Satellite Map,<br/>Results, Model Comparison, History, Research, System"]
+    apiclient["lib/api.ts<br/>typed API client"]
+    pages --> apiclient
+  end
+  subgraph BE["Backend - FastAPI (port 8000)"]
+    routers["Routers: system, analyses,<br/>evaluation, satellite"]
+    analysis["AnalysisService<br/>(background worker, 1 thread)"]
+    imaging["imaging.py<br/>decode, validate, align"]
+    manager["ModelManager<br/>(load once, GPU lock)"]
+    artifacts["artifacts.py / geo.py<br/>mask, overlay, GeoTIFF, GeoJSON"]
+    providers["ProviderRegistry<br/>EarthSearch, CDSE"]
+    routers --> analysis
+    routers --> imaging
+    routers --> providers
+    analysis --> manager
+    analysis --> artifacts
+  end
+  subgraph ML["ML package (PyTorch)"]
+    swin["SiameseSwinCD<br/>Swin-V2-T encoder + FPN decoder"]
+    cnn["FCSiamDiff<br/>CNN baseline"]
+    infer["inference.predict_pair<br/>sliding window + AMP"]
+    train["train.py / evaluate.py<br/>(offline)"]
+  end
+  subgraph ST["Local storage"]
+    db[("SQLite<br/>analyses, evaluation_runs")]
+    files[("storage/analyses/ID/<br/>inputs + artefacts")]
+    ckpt[("checkpoints/*.pt")]
+    reports[("reports/evaluation/<br/>benchmark JSON, CSV, PNG")]
+    samples[("samples/<br/>bundled pairs")]
+  end
+  subgraph EXT["External services (optional, online)"]
+    es["Element 84 Earth Search<br/>STAC + Sentinel-2 COGs"]
+    cdse["Copernicus Data Space<br/>STAC + Process API"]
+    osm["OpenStreetMap<br/>tiles + Nominatim"]
+  end
+  user --> pages
+  apiclient -- "HTTP/JSON, multipart (Vite proxy)" --> routers
+  pages -. "basemap tiles" .-> osm
+  manager --> infer
+  infer --> swin
+  infer --> cnn
+  manager --> ckpt
+  train --> ckpt
+  train --> reports
+  analysis --> db
+  analysis --> files
+  routers --> reports
+  routers --> samples
+  providers --> es
+  providers --> cdse
+  providers --> osm

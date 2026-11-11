@@ -1,0 +1,206 @@
+{
+  "model": "swin_siamese_s2",
+  "display_name": "Siamese Swin Transformer (Sentinel-2)",
+  "family": "transformer",
+  "architecture": "Same Siamese Swin-V2-T network, fine-tuned on OSCD Sentinel-2 RGB (10 m) urban change",
+  "parameters": 29976299,
+  "checkpoint": "swin_siamese_oscd.pt",
+  "checkpoint_sha256": "030caad23cbdcbdc093e09bf4594447d0de60e5a304c94da6cfba7f6a573465d",
+  "checkpoint_meta": {
+    "run_name": "swin_siamese_oscd_v1",
+    "epoch": 23,
+    "val_f1": 0.4534581344001812,
+    "val_iou": 0.2932077976591404,
+    "threshold": 0.2,
+    "dataset": "OSCD",
+    "initialised_from": {
+      "file": "swin_siamese_levir.pt",
+      "sha256": "a18cb59e29cc76bad3c3fe93b90bc13eeba4cfde35dd958d9cd143acb3319bfc",
+      "run_name": "swin_siamese_levir_v2",
+      "dataset": "LEVIR-CD"
+    },
+    "dataset_manifest_sha256": "1e275ffd9d4b5fc021265ee8f6dc0e11f962bfecf9b924454ffb2d65981483b2",
+    "seed": 42,
+    "tile_size": 256,
+    "parameters": 29976299,
+    "torch": "2.11.0+cu128",
+    "saved_utc": "2026-11-11T16:08:30+00:00",
+    "threshold_selection": {
+      "method": "maximum F1 on the validation split (test split not used)",
+      "val_f1_at_0.5": 0.4534581344001812,
+      "val_f1_at_selected": 0.45696611722547525,
+      "grid": [
+        0.05,
+        0.95,
+        0.05
+      ]
+    }
+  },
+  "dataset": "OSCD",
+  "domain": "sentinel2",
+  "evaluation": "whole test-city images, 256 px sliding window (overlap 64)",
+  "split": "test",
+  "num_images": 10,
+  "num_pixels": 3077936,
+  "threshold": 0.2,
+  "tp": 57825,
+  "fp": 28680,
+  "tn": 2890179,
+  "fn": 101252,
+  "precision": 0.6684584706086354,
+  "recall": 0.36350320913771317,
+  "f1": 0.4709221359871652,
+  "iou": 0.3079778650063646,
+  "accuracy": 0.957785996849837,
+  "undefined": [],
+  "confusion_matrix": {
+    "labels": [
+      "no_change",
+      "change"
+    ],
+    "layout": "rows = ground truth, columns = prediction",
+    "matrix": [
+      [
+        2890179,
+        28680
+      ],
+      [
+        101252,
+        57825
+      ]
+    ]
+  },
+  "per_city": [
+    {
+      "city": "brasilia",
+      "height": 433,
+      "width": 469,
+      "f1": 0.54142383727574,
+      "iou": 0.3712002507051081,
+      "precision": 0.6751211171273868,
+      "recall": 0.45192674551697826,
+      "changed_fraction_truth": 0.02581286901027689,
+      "changed_fraction_pred": 0.017279160121530256,
+      "seconds": 0.5258358999999473
+    },
+    {
+      "city": "chongqing",
+      "height": 730,
+      "width": 544,
+      "f1": 0.45721583652618136,
+      "iou": 0.29635761589403975,
+      "precision": 0.737599129217851,
+      "recall": 0.3312847016098055,
+      "changed_fraction_truth": 0.0721117042707494,
+      "changed_fraction_pred": 0.03238819500402901,
+      "seconds": 0.10855769999034237
+    },
+    {
+      "city": "dubai",
+      "height": 774,
+      "width": 634,
+      "f1": 0.2586318331802565,
+      "iou": 0.1485222011681741,
+      "precision": 0.7523998020781791,
+      "recall": 0.1561543675162768,
+      "changed_fraction_truth": 0.09922032295665925,
+      "changed_fraction_pred": 0.02059235892043463,
+      "seconds": 0.06913509999867529
+    },
+    {
+      "city": "lasvegas",
+      "height": 824,
+      "width": 716,
+      "f1": 0.6043085009715795,
+      "iou": 0.43298142991646466,
+      "precision": 0.8229829037048318,
+      "recall": 0.47744643251601504,
+      "changed_fraction_truth": 0.07673089439713619,
+      "changed_fraction_pred": 0.04451476650214243,
+      "seconds": 0.09149109999998473
+    },
+    {
+      "city": "milano",
+      "height": 545,
+      "width": 558,
+      "f1": 0.47407005158837906,
+      "iou": 0.3106761565836299,
+      "precision": 0.6906645569620253,
+      "recall": 0.36089293096320796,
+      "changed_fraction_truth": 0.007954358620236099,
+      "changed_fraction_pred": 0.004156390779652099,
+      "seconds": 0.09272230000351556
+    },
+    {
+      "city": "montpellier",
+      "height": 426,
+      "width": 451,
+      "f1": 0.7264705882352941,
+      "iou": 0.5704387990762124,
+      "precision": 0.8342936618319094,
+      "recall": 0.6433277156427148,
+      "changed_fraction_truth": 0.06794499443073816,
+      "changed_fraction_pred": 0.05239270062354913,
+      "seconds": 0.0348565000022063
+    },
+    {
+      "city": "norcia",
+      "height": 241,
+      "width": 385,
+      "f1": 0.3070226349390598,
+      "iou": 0.1813507027768255,
+      "precision": 0.238395673726904,
+      "recall": 0.4311328443357783,
+      "changed_fraction_truth": 0.013224120278062187,
+      "changed_fraction_pred": 0.023915503583553377,
+      "seconds": 0.044383500004187226
+    },
+    {
+      "city": "rio",
+      "height": 353,
+      "width": 426,
+      "f1": 0.5141769493305329,
+      "iou": 0.3460553052389787,
+      "precision": 0.5860263315380012,
+      "recall": 0.458021515434986,
+      "changed_fraction_truth": 0.05687002088071393,
+      "changed_fraction_pred": 0.044447991062522445,
+      "seconds": 0.022964500007219613
+    },
+    {
+      "city": "saclay_w",
+      "height": 639,
+      "width": 688,
+      "f1": 0.35505271887217155,
+      "iou": 0.21584443644220383,
+      "precision": 0.25261294672960216,
+      "recall": 0.5972499003587086,
+      "changed_fraction_truth": 0.011414091785857262,
+      "changed_fraction_pred": 0.026986206645558102,
+      "seconds": 0.07107219999306835
+    },
+    {
+      "city": "valencia",
+      "height": 458,
+      "width": 476,
+      "f1": 0.02880970432145565,
+      "iou": 0.014615384615384615,
+      "precision": 0.022768124625524265,
+      "recall": 0.0392156862745098,
+      "changed_fraction_truth": 0.004444791016843418,
+      "changed_fraction_pred": 0.007655682360280356,
+      "seconds": 0.07073210000817198
+    }
+  ],
+  "eval_seconds": 1.1317509000073187,
+  "latency_ms_median": 21.91770000354154,
+  "latency_ms_p95": 24.451894992671434,
+  "latency_tile": 256,
+  "latency_batch": 1,
+  "latency_runs": 30,
+  "peak_gpu_mb": 427,
+  "device": "cuda",
+  "gpu_name": "NVIDIA GeForce RTX 5050 Laptop GPU",
+  "amp": true,
+  "evaluated_utc": "2026-11-11T16:16:55+00:00"
+}

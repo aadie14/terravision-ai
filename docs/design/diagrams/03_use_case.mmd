@@ -1,0 +1,44 @@
+flowchart LR
+  analyst(["Analyst"])
+  evaluator(["Evaluator"])
+  researcher(["Researcher"])
+  provider(["Satellite imagery provider"])
+  subgraph system["TerraVision AI"]
+    uc1(["Upload image pair (PNG / JPEG / GeoTIFF)"])
+    uc2(["Run analysis on a bundled sample"])
+    uc3(["Select AOI and dates on the map"])
+    uc4(["Search and retrieve Sentinel-2 scenes"])
+    uc5(["Run change detection"])
+    uc6(["Validate and align image pair"])
+    uc7(["View mask, overlay, slider, confidence"])
+    uc8(["Adjust threshold and overlay opacity"])
+    uc9(["Compare against ground truth (F1, IoU)"])
+    uc10(["Download PNG / JSON / GeoTIFF / GeoJSON"])
+    uc11(["Re-run with the other model"])
+    uc12(["Compare CNN vs transformer benchmark"])
+    uc13(["Browse and delete analysis history"])
+    uc14(["Check system and model status"])
+    uc15(["Train and evaluate models (CLI)"])
+  end
+  analyst --> uc1
+  analyst --> uc2
+  analyst --> uc3
+  analyst --> uc7
+  analyst --> uc8
+  analyst --> uc10
+  analyst --> uc11
+  analyst --> uc13
+  evaluator --> uc2
+  evaluator --> uc9
+  evaluator --> uc12
+  evaluator --> uc14
+  researcher --> uc15
+  researcher --> uc12
+  uc3 -. include .-> uc4
+  uc1 -. include .-> uc6
+  uc4 -. include .-> uc6
+  uc1 -. include .-> uc5
+  uc2 -. include .-> uc5
+  uc4 -. include .-> uc5
+  uc9 -. extend .-> uc7
+  uc4 --> provider

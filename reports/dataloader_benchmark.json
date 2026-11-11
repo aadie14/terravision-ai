@@ -1,0 +1,9 @@
+{
+  "measured": "2026-11-11",
+  "method": "single process, random samples, warm OS cache",
+  "png_decode_ms_per_sample": 172.01,
+  "memmap_ms_per_sample": 3.838,
+  "speedup": 44.8,
+  "png_samples": 96,
+  "memmap_samples": 2000
+}

@@ -1,0 +1,53 @@
+sequenceDiagram
+  autonumber
+  actor U as User
+  participant FE as React frontend
+  participant API as FastAPI router (analyses)
+  participant IMG as imaging.py
+  participant AS as AnalysisService
+  participant DB as SQLite
+  participant W as Worker thread
+  participant MM as ModelManager
+  participant NN as SiameseSwinCD (GPU)
+  participant ART as artifacts.py / geo.py
+  U->>FE: choose T1, T2 (+ mask), model, threshold
+  FE->>API: POST /api/analyses/upload (multipart)
+  API->>IMG: load_image(T1), load_image(T2), load_mask()
+  IMG-->>API: LoadedImage x2 (uint8 RGB, optional GeoInfo)
+  API->>IMG: align_pair(T1, T2)
+  alt incompatible pair
+    IMG-->>API: AppError (e.g. IMAGE_DIMENSION_MISMATCH)
+    API-->>FE: 422 error envelope
+    FE-->>U: error banner + toast
+  else valid pair
+    API->>AS: create(...)
+    AS->>DB: INSERT analysis (status = queued)
+    AS->>W: submit(analysis_id)
+    API-->>FE: 202 Accepted (id, status)
+    FE-->>U: navigate to /results/:id (progress bar)
+    W->>DB: UPDATE status = running
+    W->>MM: predict(model_key, T1, T2)
+    MM->>MM: get() loads checkpoint once (reloads if file changed)
+    loop each batch of 256x256 tiles
+      MM->>NN: forward(T1 tiles, T2 tiles) under autocast
+      NN-->>MM: change logits
+    end
+    MM-->>W: InferenceResult (probability map, seconds)
+    W->>ART: build_outputs(prob, threshold, truth, geo)
+    ART-->>W: mask.png, overlay.png, metrics, GeoTIFF / GeoJSON
+    W->>DB: UPDATE status = completed, results JSON
+    loop every 1 s until terminal state
+      FE->>API: GET /api/analyses/ID
+      API->>DB: SELECT
+      API-->>FE: status
+    end
+    FE->>API: GET /api/analyses/ID/results
+    API-->>FE: results + download links
+    FE->>API: GET downloads t1, t2, mask
+    FE-->>U: slider, overlay, metrics, downloads
+    opt threshold slider moved
+      FE->>API: POST /api/analyses/ID/threshold
+      API->>ART: build_outputs(stored probability, new threshold)
+      API-->>FE: updated results (no new inference)
+    end
+  end

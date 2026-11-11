@@ -1,0 +1,9 @@
+{
+  "run_name": "swin_siamese_oscd_v1",
+  "model": "swin_siamese_s2",
+  "best_epoch": 23,
+  "best_val_f1": 0.4534581344001812,
+  "epochs_run": 43,
+  "checkpoint": "checkpoints/swin_siamese_oscd.pt",
+  "finished_utc": "2026-11-11T16:10:30+00:00"
+}

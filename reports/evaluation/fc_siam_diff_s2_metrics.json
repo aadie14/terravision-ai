@@ -1,0 +1,206 @@
+{
+  "model": "fc_siam_diff_s2",
+  "display_name": "FC-Siam-diff CNN (Sentinel-2)",
+  "family": "cnn",
+  "architecture": "Same FC-Siam-diff network, fine-tuned on OSCD Sentinel-2 RGB (10 m) urban change",
+  "parameters": 968209,
+  "checkpoint": "fc_siam_diff_oscd.pt",
+  "checkpoint_sha256": "e1a13ea0916166c5caae8159f2f4035992895435a9d21a686084d483db4d73b1",
+  "checkpoint_meta": {
+    "run_name": "fc_siam_diff_oscd_v1",
+    "epoch": 14,
+    "val_f1": 0.3297557972501539,
+    "val_iou": 0.19742969124350357,
+    "threshold": 0.05,
+    "dataset": "OSCD",
+    "initialised_from": {
+      "file": "fc_siam_diff_levir.pt",
+      "sha256": "62e6a558c79159269a4fb280ea6fd21aa86aad0335694d3f654ac2ad3ef23279",
+      "run_name": "fc_siam_diff_levir_v2",
+      "dataset": "LEVIR-CD"
+    },
+    "dataset_manifest_sha256": "1e275ffd9d4b5fc021265ee8f6dc0e11f962bfecf9b924454ffb2d65981483b2",
+    "seed": 42,
+    "tile_size": 256,
+    "parameters": 968209,
+    "torch": "2.11.0+cu128",
+    "saved_utc": "2026-11-11T16:11:47+00:00",
+    "threshold_selection": {
+      "method": "maximum F1 on the validation split (test split not used)",
+      "val_f1_at_0.5": 0.3297557972501539,
+      "val_f1_at_selected": 0.44968458123434846,
+      "grid": [
+        0.05,
+        0.95,
+        0.05
+      ]
+    }
+  },
+  "dataset": "OSCD",
+  "domain": "sentinel2",
+  "evaluation": "whole test-city images, 256 px sliding window (overlap 64)",
+  "split": "test",
+  "num_images": 10,
+  "num_pixels": 3077936,
+  "threshold": 0.05,
+  "tp": 48973,
+  "fp": 38649,
+  "tn": 2880210,
+  "fn": 110104,
+  "precision": 0.558912145351624,
+  "recall": 0.3078572012295932,
+  "f1": 0.3970263357370723,
+  "iou": 0.24768113449925655,
+  "accuracy": 0.9516711848459487,
+  "undefined": [],
+  "confusion_matrix": {
+    "labels": [
+      "no_change",
+      "change"
+    ],
+    "layout": "rows = ground truth, columns = prediction",
+    "matrix": [
+      [
+        2880210,
+        38649
+      ],
+      [
+        110104,
+        48973
+      ]
+    ]
+  },
+  "per_city": [
+    {
+      "city": "brasilia",
+      "height": 433,
+      "width": 469,
+      "f1": 0.29691244889327506,
+      "iou": 0.17433774834437085,
+      "precision": 0.5688816855753647,
+      "recall": 0.200877527661198,
+      "changed_fraction_truth": 0.02581286901027689,
+      "changed_fraction_pred": 0.009114769274708608,
+      "seconds": 0.18349659998784773
+    },
+    {
+      "city": "chongqing",
+      "height": 730,
+      "width": 544,
+      "f1": 0.1940714001651932,
+      "iou": 0.10746349561269777,
+      "precision": 0.7828232971372162,
+      "recall": 0.11076579250619828,
+      "changed_fraction_truth": 0.0721117042707494,
+      "changed_fraction_pred": 0.010203464947622885,
+      "seconds": 0.07728230000066105
+    },
+    {
+      "city": "dubai",
+      "height": 774,
+      "width": 634,
+      "f1": 0.13895891217546508,
+      "iou": 0.07466729944039074,
+      "precision": 0.6673736302580418,
+      "recall": 0.07755345149828503,
+      "changed_fraction_truth": 0.09922032295665925,
+      "changed_fraction_pred": 0.011530090724573889,
+      "seconds": 0.015780100002302788
+    },
+    {
+      "city": "lasvegas",
+      "height": 824,
+      "width": 716,
+      "f1": 0.6688750433503545,
+      "iou": 0.5024885455035486,
+      "precision": 0.7292117545826706,
+      "recall": 0.6177601060304838,
+      "changed_fraction_truth": 0.07673089439713619,
+      "changed_fraction_pred": 0.06500345772088735,
+      "seconds": 0.0194675999955507
+    },
+    {
+      "city": "milano",
+      "height": 545,
+      "width": 558,
+      "f1": 0.14742384355020685,
+      "iou": 0.07957775071051564,
+      "precision": 0.8166666666666667,
+      "recall": 0.08102521703183134,
+      "changed_fraction_truth": 0.007954358620236099,
+      "changed_fraction_pred": 0.000789188122718753,
+      "seconds": 0.11727960000280291
+    },
+    {
+      "city": "montpellier",
+      "height": 426,
+      "width": 451,
+      "f1": 0.7210168185903196,
+      "iou": 0.5637422204376631,
+      "precision": 0.8168331232425095,
+      "recall": 0.6453194423165314,
+      "changed_fraction_truth": 0.06794499443073816,
+      "changed_fraction_pred": 0.05367831527226924,
+      "seconds": 0.00808429998869542
+    },
+    {
+      "city": "norcia",
+      "height": 241,
+      "width": 385,
+      "f1": 0.09594855305466238,
+      "iou": 0.05039178600378276,
+      "precision": 0.05696395846059866,
+      "recall": 0.30399348003259985,
+      "changed_fraction_truth": 0.013224120278062187,
+      "changed_fraction_pred": 0.07057175189955273,
+      "seconds": 0.03662400000030175
+    },
+    {
+      "city": "rio",
+      "height": 353,
+      "width": 426,
+      "f1": 0.4221520524653874,
+      "iou": 0.26754926108374383,
+      "precision": 0.6862332192682284,
+      "recall": 0.30484097287184286,
+      "changed_fraction_truth": 0.05687002088071393,
+      "changed_fraction_pred": 0.025263003896846613,
+      "seconds": 0.006290300007094629
+    },
+    {
+      "city": "saclay_w",
+      "height": 639,
+      "width": 688,
+      "f1": 0.15988138629764626,
+      "iou": 0.08688645672463574,
+      "precision": 0.11585638821738742,
+      "recall": 0.2578716620167397,
+      "changed_fraction_truth": 0.011414091785857262,
+      "changed_fraction_pred": 0.02540533901080904,
+      "seconds": 0.016363800008548424
+    },
+    {
+      "city": "valencia",
+      "height": 458,
+      "width": 476,
+      "f1": 0.03388804841149773,
+      "iou": 0.017236072637734686,
+      "precision": 0.019854635702889558,
+      "recall": 0.11558307533539731,
+      "changed_fraction_truth": 0.004444791016843418,
+      "changed_fraction_pred": 0.025875197240468238,
+      "seconds": 0.016263499986962415
+    }
+  ],
+  "eval_seconds": 0.4969320999807678,
+  "latency_ms_median": 5.3444500008481555,
+  "latency_ms_p95": 5.621560003783088,
+  "latency_tile": 256,
+  "latency_batch": 1,
+  "latency_runs": 30,
+  "peak_gpu_mb": 202,
+  "device": "cuda",
+  "gpu_name": "NVIDIA GeForce RTX 5050 Laptop GPU",
+  "amp": true,
+  "evaluated_utc": "2026-11-11T16:17:49+00:00"
+}

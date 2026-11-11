@@ -1,0 +1,36 @@
+[project]
+name = "terravision-ai"
+version = "0.1.0"
+description = "Vision Transformers for Satellite Land-Use Monitoring - bitemporal change detection research prototype"
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore:.*NotGeoreferencedWarning.*",
+    "ignore::rasterio.errors.NotGeoreferencedWarning",
+]
+
+[tool.coverage.run]
+source = ["backend", "ml"]
+omit = ["*/__init__.py"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+extend-exclude = ["frontend", "data", "storage", "experiments"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "N", "S", "C4", "SIM", "RUF"]
+ignore = [
+    "S101",   # assert is the test idiom
+    "B008",   # FastAPI Depends()/File() defaults
+    "RUF012", # pydantic/dataclass class attributes
+    "S311",   # random is used for seeding, not security
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S", "N", "E501"]
+"scripts/*" = ["S", "E402", "E501", "RUF001"]  # document text is prose-heavy
